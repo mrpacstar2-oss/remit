@@ -1,10 +1,9 @@
-# Publishes site/ to GitHub Pages on every push to main.
-# One-time setup in the repository: Settings > Pages > Source: "GitHub Actions".
+# Publishes site/ to GitHub Pages. Manual only (Actions tab > Website > Run workflow), because the main
+# website is served from the VPS. Before the first run: repository Settings > Pages > Source: "GitHub Actions".
+# To publish on every push instead, add "push: branches: [main]" under "on:".
 # Optional: Settings > Secrets and variables > Actions > Variables: MCP_URL = https://<your-vps-address>/mcp
 name: Website
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 permissions:
   contents: read
