@@ -13,6 +13,9 @@ It is meant to be written and edited by AI agents. Before a program runs, the ch
 
 A runtime broker then enforces the same rules and records a replayable trace.
 
+**Try it in your browser:** https://77-68-52-20.sslip.io/try.html (pick an edit an AI might make and see it
+allowed or blocked, with the reason). **For AI agents:** connect the MCP server at `https://77-68-52-20.sslip.io/mcp`.
+
 ```
 payments.schedule(vendor_id: vendor.id, iban: inv.iban_on_invoice, amount: inv.amount, ...)
 
@@ -75,13 +78,11 @@ trials.
 
 ## Status
 
-This is a research prototype.
+Remit is an early, open-source release. The language, checker, runtime, MCP server, demo and five example apps
+all work and are tested. It is not yet a finished product: there is no built-in sandboxing (run it inside your own
+isolated environment) and no module system, concurrency or editor language server yet. See
+[LANGUAGE_SPEC §13](docs/LANGUAGE_SPEC.md#13-proposals-not-implemented) for what is planned.
 
-- **Implemented and tested:** the parser, checker, interpreter, broker, CLI (`check`, `build`, `run`, `test`,
-  `fmt`, `replay`, `approve`, `resume`, `diff`, `ask`, `mcp`), the MCP server and five example apps.
-- **Not implemented:** an OS sandbox (run it inside your own isolation), modules, concurrency and a language server.
-  See LANGUAGE_SPEC §13.
-
-Deploying the website and hosted MCP server is covered in [deploy/PUBLISHING.md](deploy/PUBLISHING.md).
+Setting up the website and hosted MCP server is covered in [deploy/PUBLISHING.md](deploy/PUBLISHING.md).
 
 Licence: Apache-2.0.
