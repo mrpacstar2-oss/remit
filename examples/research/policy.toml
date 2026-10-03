@@ -1,0 +1,14 @@
+[budget]
+max_usd = 0.30
+
+[grant."pypi.info"]
+max_calls = 10
+
+[grant."pypi.releases"]
+max_calls = 10
+
+[grant."github.readme"]
+max_calls = 10
+
+[grant.llm]
+max_calls = 8

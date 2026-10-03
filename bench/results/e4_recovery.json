@@ -1,0 +1,1790 @@
+[
+ {
+  "app": "support",
+  "calls": 6,
+  "effects_uninterrupted": 2,
+  "trials": [
+   {
+    "k": 1,
+    "crashed": true,
+    "same_result": true,
+    "effects": 2,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 2,
+    "crashed": true,
+    "same_result": true,
+    "effects": 2,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 3,
+    "crashed": true,
+    "same_result": true,
+    "effects": 2,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 4,
+    "crashed": true,
+    "same_result": true,
+    "effects": 2,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 5,
+    "crashed": true,
+    "same_result": true,
+    "effects": 2,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 6,
+    "crashed": true,
+    "same_result": true,
+    "effects": 2,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   }
+  ],
+  "all_same_result": true,
+  "max_duplicated_effects": 0,
+  "lang": "axiom",
+  "downstream_dedupe": true
+ },
+ {
+  "app": "support",
+  "calls": 6,
+  "effects_uninterrupted": 2,
+  "trials": [
+   {
+    "k": 1,
+    "crashed": true,
+    "same_result": true,
+    "effects": 2,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 2,
+    "crashed": true,
+    "same_result": true,
+    "effects": 2,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 3,
+    "crashed": true,
+    "same_result": true,
+    "effects": 2,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 4,
+    "crashed": true,
+    "same_result": true,
+    "effects": 2,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 5,
+    "crashed": true,
+    "same_result": true,
+    "effects": 2,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 6,
+    "crashed": true,
+    "same_result": true,
+    "effects": 2,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   }
+  ],
+  "all_same_result": true,
+  "max_duplicated_effects": 0,
+  "lang": "python",
+  "downstream_dedupe": true
+ },
+ {
+  "app": "research",
+  "calls": 13,
+  "effects_uninterrupted": 0,
+  "trials": [
+   {
+    "k": 1,
+    "crashed": true,
+    "same_result": true,
+    "effects": 0,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 2,
+    "crashed": true,
+    "same_result": true,
+    "effects": 0,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 3,
+    "crashed": true,
+    "same_result": true,
+    "effects": 0,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 4,
+    "crashed": true,
+    "same_result": true,
+    "effects": 0,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 5,
+    "crashed": true,
+    "same_result": true,
+    "effects": 0,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 6,
+    "crashed": true,
+    "same_result": true,
+    "effects": 0,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 7,
+    "crashed": true,
+    "same_result": true,
+    "effects": 0,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 8,
+    "crashed": true,
+    "same_result": true,
+    "effects": 0,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 9,
+    "crashed": true,
+    "same_result": true,
+    "effects": 0,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 10,
+    "crashed": true,
+    "same_result": true,
+    "effects": 0,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 11,
+    "crashed": true,
+    "same_result": true,
+    "effects": 0,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 12,
+    "crashed": true,
+    "same_result": true,
+    "effects": 0,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 13,
+    "crashed": true,
+    "same_result": true,
+    "effects": 0,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   }
+  ],
+  "all_same_result": true,
+  "max_duplicated_effects": 0,
+  "lang": "axiom",
+  "downstream_dedupe": true
+ },
+ {
+  "app": "research",
+  "calls": 13,
+  "effects_uninterrupted": 0,
+  "trials": [
+   {
+    "k": 1,
+    "crashed": true,
+    "same_result": true,
+    "effects": 0,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 2,
+    "crashed": true,
+    "same_result": true,
+    "effects": 0,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 3,
+    "crashed": true,
+    "same_result": true,
+    "effects": 0,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 4,
+    "crashed": true,
+    "same_result": true,
+    "effects": 0,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 5,
+    "crashed": true,
+    "same_result": true,
+    "effects": 0,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 6,
+    "crashed": true,
+    "same_result": true,
+    "effects": 0,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 7,
+    "crashed": true,
+    "same_result": true,
+    "effects": 0,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 8,
+    "crashed": true,
+    "same_result": true,
+    "effects": 0,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 9,
+    "crashed": true,
+    "same_result": true,
+    "effects": 0,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 10,
+    "crashed": true,
+    "same_result": true,
+    "effects": 0,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 11,
+    "crashed": true,
+    "same_result": true,
+    "effects": 0,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 12,
+    "crashed": true,
+    "same_result": true,
+    "effects": 0,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 13,
+    "crashed": true,
+    "same_result": true,
+    "effects": 0,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   }
+  ],
+  "all_same_result": true,
+  "max_duplicated_effects": 0,
+  "lang": "python",
+  "downstream_dedupe": true
+ },
+ {
+  "app": "invoices",
+  "calls": 14,
+  "effects_uninterrupted": 4,
+  "trials": [
+   {
+    "k": 1,
+    "crashed": true,
+    "same_result": true,
+    "effects": 4,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 2,
+    "crashed": true,
+    "same_result": true,
+    "effects": 4,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 3,
+    "crashed": true,
+    "same_result": true,
+    "effects": 4,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 4,
+    "crashed": true,
+    "same_result": true,
+    "effects": 4,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 5,
+    "crashed": true,
+    "same_result": true,
+    "effects": 4,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 6,
+    "crashed": true,
+    "same_result": true,
+    "effects": 4,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 7,
+    "crashed": true,
+    "same_result": true,
+    "effects": 4,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 8,
+    "crashed": true,
+    "same_result": true,
+    "effects": 4,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 9,
+    "crashed": true,
+    "same_result": true,
+    "effects": 4,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 10,
+    "crashed": true,
+    "same_result": true,
+    "effects": 4,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 11,
+    "crashed": true,
+    "same_result": true,
+    "effects": 4,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 12,
+    "crashed": true,
+    "same_result": true,
+    "effects": 4,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 13,
+    "crashed": true,
+    "same_result": true,
+    "effects": 4,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 14,
+    "crashed": true,
+    "same_result": true,
+    "effects": 4,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   }
+  ],
+  "all_same_result": true,
+  "max_duplicated_effects": 0,
+  "lang": "axiom",
+  "downstream_dedupe": true
+ },
+ {
+  "app": "invoices",
+  "calls": 14,
+  "effects_uninterrupted": 4,
+  "trials": [
+   {
+    "k": 1,
+    "crashed": true,
+    "same_result": true,
+    "effects": 4,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 2,
+    "crashed": true,
+    "same_result": true,
+    "effects": 4,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 3,
+    "crashed": true,
+    "same_result": true,
+    "effects": 4,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 4,
+    "crashed": true,
+    "same_result": true,
+    "effects": 4,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 5,
+    "crashed": true,
+    "same_result": true,
+    "effects": 4,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 6,
+    "crashed": true,
+    "same_result": true,
+    "effects": 4,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 7,
+    "crashed": true,
+    "same_result": true,
+    "effects": 4,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 8,
+    "crashed": true,
+    "same_result": true,
+    "effects": 4,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 9,
+    "crashed": true,
+    "same_result": true,
+    "effects": 4,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 10,
+    "crashed": true,
+    "same_result": true,
+    "effects": 4,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 11,
+    "crashed": true,
+    "same_result": true,
+    "effects": 4,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 12,
+    "crashed": true,
+    "same_result": true,
+    "effects": 4,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 13,
+    "crashed": true,
+    "same_result": true,
+    "effects": 4,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 14,
+    "crashed": true,
+    "same_result": true,
+    "effects": 4,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   }
+  ],
+  "all_same_result": true,
+  "max_duplicated_effects": 0,
+  "lang": "python",
+  "downstream_dedupe": true
+ },
+ {
+  "app": "coding",
+  "calls": 7,
+  "effects_uninterrupted": 1,
+  "trials": [
+   {
+    "k": 1,
+    "crashed": true,
+    "same_result": true,
+    "effects": 1,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 2,
+    "crashed": true,
+    "same_result": true,
+    "effects": 1,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 3,
+    "crashed": true,
+    "same_result": true,
+    "effects": 1,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 4,
+    "crashed": true,
+    "same_result": true,
+    "effects": 1,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 5,
+    "crashed": true,
+    "same_result": true,
+    "effects": 1,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 6,
+    "crashed": true,
+    "same_result": true,
+    "effects": 1,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 7,
+    "crashed": true,
+    "same_result": true,
+    "effects": 1,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   }
+  ],
+  "all_same_result": true,
+  "max_duplicated_effects": 0,
+  "lang": "axiom",
+  "downstream_dedupe": true
+ },
+ {
+  "app": "coding",
+  "calls": 7,
+  "effects_uninterrupted": 1,
+  "trials": [
+   {
+    "k": 1,
+    "crashed": true,
+    "same_result": true,
+    "effects": 1,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 2,
+    "crashed": true,
+    "same_result": true,
+    "effects": 1,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 3,
+    "crashed": true,
+    "same_result": true,
+    "effects": 1,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 4,
+    "crashed": true,
+    "same_result": true,
+    "effects": 1,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 5,
+    "crashed": true,
+    "same_result": true,
+    "effects": 1,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 6,
+    "crashed": true,
+    "same_result": true,
+    "effects": 1,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 7,
+    "crashed": true,
+    "same_result": true,
+    "effects": 1,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   }
+  ],
+  "all_same_result": true,
+  "max_duplicated_effects": 0,
+  "lang": "python",
+  "downstream_dedupe": true
+ },
+ {
+  "app": "verify",
+  "calls": 9,
+  "effects_uninterrupted": 0,
+  "trials": [
+   {
+    "k": 1,
+    "crashed": true,
+    "same_result": true,
+    "effects": 0,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 2,
+    "crashed": true,
+    "same_result": true,
+    "effects": 0,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 3,
+    "crashed": true,
+    "same_result": true,
+    "effects": 0,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 4,
+    "crashed": true,
+    "same_result": true,
+    "effects": 0,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 5,
+    "crashed": true,
+    "same_result": true,
+    "effects": 0,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 6,
+    "crashed": true,
+    "same_result": true,
+    "effects": 0,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 7,
+    "crashed": true,
+    "same_result": true,
+    "effects": 0,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 8,
+    "crashed": true,
+    "same_result": true,
+    "effects": 0,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 9,
+    "crashed": true,
+    "same_result": true,
+    "effects": 0,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   }
+  ],
+  "all_same_result": true,
+  "max_duplicated_effects": 0,
+  "lang": "axiom",
+  "downstream_dedupe": true
+ },
+ {
+  "app": "verify",
+  "calls": 9,
+  "effects_uninterrupted": 0,
+  "trials": [
+   {
+    "k": 1,
+    "crashed": true,
+    "same_result": true,
+    "effects": 0,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 2,
+    "crashed": true,
+    "same_result": true,
+    "effects": 0,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 3,
+    "crashed": true,
+    "same_result": true,
+    "effects": 0,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 4,
+    "crashed": true,
+    "same_result": true,
+    "effects": 0,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 5,
+    "crashed": true,
+    "same_result": true,
+    "effects": 0,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 6,
+    "crashed": true,
+    "same_result": true,
+    "effects": 0,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 7,
+    "crashed": true,
+    "same_result": true,
+    "effects": 0,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 8,
+    "crashed": true,
+    "same_result": true,
+    "effects": 0,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 9,
+    "crashed": true,
+    "same_result": true,
+    "effects": 0,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   }
+  ],
+  "all_same_result": true,
+  "max_duplicated_effects": 0,
+  "lang": "python",
+  "downstream_dedupe": true
+ },
+ {
+  "app": "support",
+  "calls": 6,
+  "effects_uninterrupted": 2,
+  "trials": [
+   {
+    "k": 1,
+    "crashed": true,
+    "same_result": true,
+    "effects": 2,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 2,
+    "crashed": true,
+    "same_result": true,
+    "effects": 2,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 3,
+    "crashed": true,
+    "same_result": true,
+    "effects": 2,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 4,
+    "crashed": true,
+    "same_result": true,
+    "effects": 3,
+    "duplicated_effects": 1,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 5,
+    "crashed": true,
+    "same_result": true,
+    "effects": 2,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 6,
+    "crashed": true,
+    "same_result": true,
+    "effects": 3,
+    "duplicated_effects": 1,
+    "reexecuted_calls": 1
+   }
+  ],
+  "all_same_result": true,
+  "max_duplicated_effects": 1,
+  "lang": "axiom",
+  "downstream_dedupe": false
+ },
+ {
+  "app": "support",
+  "calls": 6,
+  "effects_uninterrupted": 2,
+  "trials": [
+   {
+    "k": 1,
+    "crashed": true,
+    "same_result": true,
+    "effects": 2,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 2,
+    "crashed": true,
+    "same_result": true,
+    "effects": 2,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 3,
+    "crashed": true,
+    "same_result": true,
+    "effects": 2,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 4,
+    "crashed": true,
+    "same_result": true,
+    "effects": 3,
+    "duplicated_effects": 1,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 5,
+    "crashed": true,
+    "same_result": true,
+    "effects": 2,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 6,
+    "crashed": true,
+    "same_result": true,
+    "effects": 3,
+    "duplicated_effects": 1,
+    "reexecuted_calls": 1
+   }
+  ],
+  "all_same_result": true,
+  "max_duplicated_effects": 1,
+  "lang": "python",
+  "downstream_dedupe": false
+ },
+ {
+  "app": "research",
+  "calls": 13,
+  "effects_uninterrupted": 0,
+  "trials": [
+   {
+    "k": 1,
+    "crashed": true,
+    "same_result": true,
+    "effects": 0,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 2,
+    "crashed": true,
+    "same_result": true,
+    "effects": 0,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 3,
+    "crashed": true,
+    "same_result": true,
+    "effects": 0,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 4,
+    "crashed": true,
+    "same_result": true,
+    "effects": 0,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 5,
+    "crashed": true,
+    "same_result": true,
+    "effects": 0,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 6,
+    "crashed": true,
+    "same_result": true,
+    "effects": 0,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 7,
+    "crashed": true,
+    "same_result": true,
+    "effects": 0,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 8,
+    "crashed": true,
+    "same_result": true,
+    "effects": 0,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 9,
+    "crashed": true,
+    "same_result": true,
+    "effects": 0,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 10,
+    "crashed": true,
+    "same_result": true,
+    "effects": 0,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 11,
+    "crashed": true,
+    "same_result": true,
+    "effects": 0,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 12,
+    "crashed": true,
+    "same_result": true,
+    "effects": 0,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 13,
+    "crashed": true,
+    "same_result": true,
+    "effects": 0,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   }
+  ],
+  "all_same_result": true,
+  "max_duplicated_effects": 0,
+  "lang": "axiom",
+  "downstream_dedupe": false
+ },
+ {
+  "app": "research",
+  "calls": 13,
+  "effects_uninterrupted": 0,
+  "trials": [
+   {
+    "k": 1,
+    "crashed": true,
+    "same_result": true,
+    "effects": 0,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 2,
+    "crashed": true,
+    "same_result": true,
+    "effects": 0,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 3,
+    "crashed": true,
+    "same_result": true,
+    "effects": 0,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 4,
+    "crashed": true,
+    "same_result": true,
+    "effects": 0,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 5,
+    "crashed": true,
+    "same_result": true,
+    "effects": 0,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 6,
+    "crashed": true,
+    "same_result": true,
+    "effects": 0,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 7,
+    "crashed": true,
+    "same_result": true,
+    "effects": 0,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 8,
+    "crashed": true,
+    "same_result": true,
+    "effects": 0,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 9,
+    "crashed": true,
+    "same_result": true,
+    "effects": 0,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 10,
+    "crashed": true,
+    "same_result": true,
+    "effects": 0,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 11,
+    "crashed": true,
+    "same_result": true,
+    "effects": 0,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 12,
+    "crashed": true,
+    "same_result": true,
+    "effects": 0,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 13,
+    "crashed": true,
+    "same_result": true,
+    "effects": 0,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   }
+  ],
+  "all_same_result": true,
+  "max_duplicated_effects": 0,
+  "lang": "python",
+  "downstream_dedupe": false
+ },
+ {
+  "app": "invoices",
+  "calls": 14,
+  "effects_uninterrupted": 4,
+  "trials": [
+   {
+    "k": 1,
+    "crashed": true,
+    "same_result": true,
+    "effects": 4,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 2,
+    "crashed": true,
+    "same_result": true,
+    "effects": 4,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 3,
+    "crashed": true,
+    "same_result": true,
+    "effects": 4,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 4,
+    "crashed": true,
+    "same_result": true,
+    "effects": 4,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 5,
+    "crashed": true,
+    "same_result": true,
+    "effects": 5,
+    "duplicated_effects": 1,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 6,
+    "crashed": true,
+    "same_result": true,
+    "effects": 4,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 7,
+    "crashed": true,
+    "same_result": true,
+    "effects": 4,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 8,
+    "crashed": true,
+    "same_result": true,
+    "effects": 4,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 9,
+    "crashed": true,
+    "same_result": true,
+    "effects": 5,
+    "duplicated_effects": 1,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 10,
+    "crashed": true,
+    "same_result": true,
+    "effects": 4,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 11,
+    "crashed": true,
+    "same_result": true,
+    "effects": 4,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 12,
+    "crashed": true,
+    "same_result": true,
+    "effects": 4,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 13,
+    "crashed": true,
+    "same_result": true,
+    "effects": 5,
+    "duplicated_effects": 1,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 14,
+    "crashed": true,
+    "same_result": true,
+    "effects": 5,
+    "duplicated_effects": 1,
+    "reexecuted_calls": 1
+   }
+  ],
+  "all_same_result": true,
+  "max_duplicated_effects": 1,
+  "lang": "axiom",
+  "downstream_dedupe": false
+ },
+ {
+  "app": "invoices",
+  "calls": 14,
+  "effects_uninterrupted": 4,
+  "trials": [
+   {
+    "k": 1,
+    "crashed": true,
+    "same_result": true,
+    "effects": 4,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 2,
+    "crashed": true,
+    "same_result": true,
+    "effects": 4,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 3,
+    "crashed": true,
+    "same_result": true,
+    "effects": 4,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 4,
+    "crashed": true,
+    "same_result": true,
+    "effects": 4,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 5,
+    "crashed": true,
+    "same_result": true,
+    "effects": 5,
+    "duplicated_effects": 1,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 6,
+    "crashed": true,
+    "same_result": true,
+    "effects": 4,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 7,
+    "crashed": true,
+    "same_result": true,
+    "effects": 4,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 8,
+    "crashed": true,
+    "same_result": true,
+    "effects": 4,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 9,
+    "crashed": true,
+    "same_result": true,
+    "effects": 5,
+    "duplicated_effects": 1,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 10,
+    "crashed": true,
+    "same_result": true,
+    "effects": 4,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 11,
+    "crashed": true,
+    "same_result": true,
+    "effects": 4,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 12,
+    "crashed": true,
+    "same_result": true,
+    "effects": 4,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 13,
+    "crashed": true,
+    "same_result": true,
+    "effects": 5,
+    "duplicated_effects": 1,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 14,
+    "crashed": true,
+    "same_result": true,
+    "effects": 5,
+    "duplicated_effects": 1,
+    "reexecuted_calls": 1
+   }
+  ],
+  "all_same_result": true,
+  "max_duplicated_effects": 1,
+  "lang": "python",
+  "downstream_dedupe": false
+ },
+ {
+  "app": "coding",
+  "calls": 7,
+  "effects_uninterrupted": 1,
+  "trials": [
+   {
+    "k": 1,
+    "crashed": true,
+    "same_result": true,
+    "effects": 1,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 2,
+    "crashed": true,
+    "same_result": true,
+    "effects": 1,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 3,
+    "crashed": true,
+    "same_result": true,
+    "effects": 1,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 4,
+    "crashed": true,
+    "same_result": true,
+    "effects": 1,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 5,
+    "crashed": true,
+    "same_result": true,
+    "effects": 1,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 6,
+    "crashed": true,
+    "same_result": true,
+    "effects": 2,
+    "duplicated_effects": 1,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 7,
+    "crashed": true,
+    "same_result": true,
+    "effects": 1,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   }
+  ],
+  "all_same_result": true,
+  "max_duplicated_effects": 1,
+  "lang": "axiom",
+  "downstream_dedupe": false
+ },
+ {
+  "app": "coding",
+  "calls": 7,
+  "effects_uninterrupted": 1,
+  "trials": [
+   {
+    "k": 1,
+    "crashed": true,
+    "same_result": true,
+    "effects": 1,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 2,
+    "crashed": true,
+    "same_result": true,
+    "effects": 1,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 3,
+    "crashed": true,
+    "same_result": true,
+    "effects": 1,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 4,
+    "crashed": true,
+    "same_result": true,
+    "effects": 1,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 5,
+    "crashed": true,
+    "same_result": true,
+    "effects": 1,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 6,
+    "crashed": true,
+    "same_result": true,
+    "effects": 2,
+    "duplicated_effects": 1,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 7,
+    "crashed": true,
+    "same_result": true,
+    "effects": 1,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   }
+  ],
+  "all_same_result": true,
+  "max_duplicated_effects": 1,
+  "lang": "python",
+  "downstream_dedupe": false
+ },
+ {
+  "app": "verify",
+  "calls": 9,
+  "effects_uninterrupted": 0,
+  "trials": [
+   {
+    "k": 1,
+    "crashed": true,
+    "same_result": true,
+    "effects": 0,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 2,
+    "crashed": true,
+    "same_result": true,
+    "effects": 0,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 3,
+    "crashed": true,
+    "same_result": true,
+    "effects": 0,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 4,
+    "crashed": true,
+    "same_result": true,
+    "effects": 0,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 5,
+    "crashed": true,
+    "same_result": true,
+    "effects": 0,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 6,
+    "crashed": true,
+    "same_result": true,
+    "effects": 0,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 7,
+    "crashed": true,
+    "same_result": true,
+    "effects": 0,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 8,
+    "crashed": true,
+    "same_result": true,
+    "effects": 0,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 9,
+    "crashed": true,
+    "same_result": true,
+    "effects": 0,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   }
+  ],
+  "all_same_result": true,
+  "max_duplicated_effects": 0,
+  "lang": "axiom",
+  "downstream_dedupe": false
+ },
+ {
+  "app": "verify",
+  "calls": 9,
+  "effects_uninterrupted": 0,
+  "trials": [
+   {
+    "k": 1,
+    "crashed": true,
+    "same_result": true,
+    "effects": 0,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 2,
+    "crashed": true,
+    "same_result": true,
+    "effects": 0,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 3,
+    "crashed": true,
+    "same_result": true,
+    "effects": 0,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 4,
+    "crashed": true,
+    "same_result": true,
+    "effects": 0,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 5,
+    "crashed": true,
+    "same_result": true,
+    "effects": 0,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 6,
+    "crashed": true,
+    "same_result": true,
+    "effects": 0,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 7,
+    "crashed": true,
+    "same_result": true,
+    "effects": 0,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 8,
+    "crashed": true,
+    "same_result": true,
+    "effects": 0,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   },
+   {
+    "k": 9,
+    "crashed": true,
+    "same_result": true,
+    "effects": 0,
+    "duplicated_effects": 0,
+    "reexecuted_calls": 1
+   }
+  ],
+  "all_same_result": true,
+  "max_duplicated_effects": 0,
+  "lang": "python",
+  "downstream_dedupe": false
+ }
+]

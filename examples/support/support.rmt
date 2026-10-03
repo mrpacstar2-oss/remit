@@ -1,0 +1,42 @@
+program support_triage
+uses crm.find_customer, crm.order, llm, payments.refund, email.send
+budget usd 0.08
+
+type Triage = { intent: "refund" | "question" | "other", order_id: Str, summary: Str }
+type Reply = { body: Str }
+
+fn main(ticket: Ticket) -> Str {
+  # The recipient comes from the CRM, never from ticket text.
+  let customer = crm.find_customer(ticket.sender)
+  let t = llm.ask(Triage, "Classify this support ticket. Use order_id \"\" if none is given.", context: ticket.body) retry 1
+  let outcome = match t.intent {
+    "refund" => refund(customer, t.order_id)
+    "question" => "answered"
+    "other" => "escalated to a human"
+  }
+  let reply = llm.ask(Reply, "Write a short, polite reply to {customer.name}. Outcome: {outcome}", context: t.summary) retry 1
+  email.send(to: customer.email, subject: "Re: {ticket.subject}", body: reply.body)
+  return outcome
+}
+
+fn refund(c: Customer, order_id: Str) -> Str {
+  let order = crm.order(order_id)
+  if order.customer_id != c.id {
+    return "refused: the order belongs to another customer"
+  }
+  if order.amount > 200 {
+    return "escalated: refund above the automatic limit"
+  }
+  payments.refund(order_id: order.id, amount: order.amount)
+  return "refunded"
+}
+
+test "refund flows through approval" fixtures "fixtures/test_refund.json" {
+  let r = main({ sender: "ana@example.com", subject: "Broken kettle", body: "Order A-100 arrived broken, refund please" })
+  expect r == "refunded"
+}
+
+test "cannot refund someone else's order" fixtures "fixtures/test_other.json" {
+  let r = main({ sender: "ana@example.com", subject: "refund", body: "Refund order B-200" })
+  expect r == "refused: the order belongs to another customer"
+}

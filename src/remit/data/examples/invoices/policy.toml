@@ -1,0 +1,24 @@
+[budget]
+max_usd = 0.75
+
+[grant."inbox.list"]
+max_calls = 1
+arg_one_of = { folder = ["inbox"] }
+
+[grant."inbox.read"]
+max_calls = 25
+
+[grant."vendors.lookup"]
+max_calls = 25
+
+[grant."payments.schedule"]
+max_calls = 25
+
+[grant."review.queue"]
+max_calls = 25
+
+[grant."report.write"]
+max_calls = 1
+
+[grant.llm]
+max_calls = 50

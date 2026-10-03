@@ -1,0 +1,14 @@
+{"_note": "OFFLINE FIXTURE: canned sources and agent outputs",
+ "capabilities": {
+  "pypi.info": [{"output": {"name": "httpx", "version": "0.28.1", "summary": "The next generation HTTP client.", "released": "2024-12-06", "source_url": "https://github.com/encode/httpx", "requires_python": ">=3.8", "license": "BSD-3-Clause"}}],
+  "pypi.releases": [{"output": [{"version": "0.28.1", "date": "2024-12-06"}]}],
+  "github.readme": [{"output": "HTTPX ... HTTP/1.1 and HTTP/2 support."}]
+ },
+ "model": [
+  {"agent": "Extractor", "output": {"claims": ["httpx is MIT licensed", "httpx supports HTTP/2"]}},
+  {"agent": "Verifier", "match": "MIT", "output": {"verdict": "contradicted", "quote": "license: BSD-3-Clause"}},
+  {"agent": "Auditor", "match": "MIT", "output": {"verdict": "contradicted", "quote": "license: BSD-3-Clause"}},
+  {"agent": "Verifier", "match": "HTTP/2", "output": {"verdict": "supported", "quote": "HTTP/2 support"}},
+  {"agent": "Auditor", "match": "HTTP/2", "output": {"verdict": "unsupported", "quote": ""}},
+  {"agent": "Judge", "output": {"verdict": "supported", "quote": "HTTP/1.1 and HTTP/2 support."}}
+ ]}

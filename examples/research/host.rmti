@@ -1,0 +1,21 @@
+# Host interface for package due-diligence research. Sources are public, so their text is untrusted.
+type PkgInfo = { name: Str, version: Str, summary: Str, released: Str, source_url: Str, requires_python: Str, license: Str }
+type Release = { version: Str, date: Str }
+
+input question tags untrusted
+input packages tags untrusted
+
+capability pypi.info(name: Str) -> PkgInfo
+  tags untrusted
+  idempotent
+
+capability pypi.releases(name: Str) -> List[Release] max 20
+  tags untrusted
+  idempotent
+
+# repo is "owner/name"; the adapter reads README.md from GitHub's raw file host only.
+capability github.readme(repo: Str) -> Str
+  tags untrusted
+  idempotent
+
+model llm cost 0.03

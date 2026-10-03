@@ -1,0 +1,30 @@
+# Host interface for the support desk. Written by the operator, not by the program or a model.
+type Ticket = { sender: Str, subject: Str, body: Str }
+type Customer = { id: Str, email: Str, name: Str }
+type Order = { id: Str, customer_id: Str, amount: Float, status: Str }
+
+# Ticket text is written by whoever sent the email.
+input ticket tags untrusted
+
+# CRM records are authoritative: the host vouches for them even when an untrusted key selected them.
+capability crm.find_customer(email: Str) -> Customer
+  tags private
+  clears untrusted
+  idempotent
+
+capability crm.order(order_id: Str) -> Order
+  tags private
+  clears untrusted
+  idempotent
+
+# Moving money: arguments must not come from untrusted data, and untrusted influence needs a human.
+capability payments.refund(order_id: Str deny untrusted approve untrusted, amount: Float deny untrusted approve untrusted)
+
+capability email.send(to: Str deny untrusted, subject: Str, body: Str)
+
+model llm cost 0.01
+
+# Public help-centre search (third-party service): customer data must never be sent to it.
+capability kb.search(query: Str deny private) -> List[Str] max 5
+  tags untrusted
+  idempotent

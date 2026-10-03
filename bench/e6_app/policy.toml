@@ -1,0 +1,20 @@
+[budget]
+max_usd = 0.50
+
+[grant."expenses.pending"]
+max_calls = 1
+
+[grant."expenses.get"]
+max_calls = 20
+
+[grant."directory.lookup"]
+max_calls = 20
+
+[grant."payroll.reimburse"]
+max_calls = 20
+
+[grant."mail.send"]
+max_calls = 20
+
+[grant.llm]
+max_calls = 40

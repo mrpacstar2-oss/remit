@@ -1,0 +1,14 @@
+{
+  "_note": "OFFLINE FIXTURE: canned CRM rows and model outputs for tests. Not a live integration.",
+  "approve_all": true,
+  "capabilities": {
+    "crm.find_customer": [{"args": {"email": "ana@example.com"}, "output": {"id": "C-1", "email": "ana@example.com", "name": "Ana"}}],
+    "crm.order": [{"args": {"order_id": "A-100"}, "output": {"id": "A-100", "customer_id": "C-1", "amount": 42.5, "status": "delivered"}}],
+    "payments.refund": [{"output": null}],
+    "email.send": [{"output": null}]
+  },
+  "model": [
+    {"match": "Classify", "output": {"intent": "refund", "order_id": "A-100", "summary": "Kettle arrived broken; wants refund."}},
+    {"match": "Write a short", "output": {"body": "Hi Ana, your refund is on its way."}}
+  ]
+}

@@ -1,0 +1,789 @@
+[
+ {
+  "task": "T1",
+  "cond": "full",
+  "model": "claude-haiku-4-5-20251001",
+  "rep": 0,
+  "cost_usd": 0.02358,
+  "output_tokens": 1812,
+  "apply_ok": true,
+  "checks": {
+   "compiles": true,
+   "complaint outcome": true,
+   "no refund": true,
+   "reply sent": true,
+   "regression: refund": true,
+   "regression: ownership": true,
+   "_check_failed": null,
+   "_error": null
+  },
+  "changed_lines": 5,
+  "comments_kept": true
+ },
+ {
+  "task": "T1",
+  "cond": "patch",
+  "model": "claude-haiku-4-5-20251001",
+  "rep": 0,
+  "cost_usd": 0.022720999999999998,
+  "output_tokens": 1545,
+  "ops": [
+   {
+    "op": "replace",
+    "name": "Triage",
+    "source": "type Triage = { intent: \"refund\" | \"question\" | \"complaint\" | \"other\", order_id: Str, summary: Str }"
+   },
+   {
+    "op": "replace",
+    "name": "main",
+    "source": "fn main(ticket: Ticket) -> Str {\n  # The recipient comes from the CRM, never from ticket text.\n  let customer = crm.find_customer(ticket.sender)\n  let t = llm.ask(Triage, \"Classify this support ticket. Use order_id \\\"\\\" if none is given.\", context: ticket.body) retry 1\n  let outcome = match t.intent {\n    \"refund\" => refund(customer, t.order_id)\n    \"question\" => \"answered\"\n    \"complaint\" => \"escalated: complaint\"\n    \"other\" => \"escalated to a human\"\n  }\n  let reply = llm.ask(Reply, \"Write a short, polite reply to {customer.name}. Outcome: {outcome}\", context: t.summary) retry 1\n  email.send(to: customer.email, subject: \"Re: {ticket.subject}\", body: reply.body)\n  return outcome\n}"
+   }
+  ],
+  "apply_ok": true,
+  "checks": {
+   "compiles": true,
+   "complaint outcome": true,
+   "no refund": true,
+   "reply sent": true,
+   "regression: refund": true,
+   "regression: ownership": true,
+   "_check_failed": null,
+   "_error": null
+  },
+  "changed_lines": 9,
+  "comments_kept": true
+ },
+ {
+  "task": "T2",
+  "cond": "full",
+  "model": "claude-haiku-4-5-20251001",
+  "rep": 0,
+  "cost_usd": 0.021123999999999997,
+  "output_tokens": 1372,
+  "apply_ok": true,
+  "checks": {
+   "compiles": true,
+   "runs": true,
+   "empty -> avoid": true,
+   "empty reasons/evidence": true,
+   "no model call for empty": true,
+   "regression: assess": true,
+   "_check_failed": null,
+   "_error": null
+  },
+  "changed_lines": 3,
+  "comments_kept": true
+ },
+ {
+  "task": "T2",
+  "cond": "patch",
+  "model": "claude-haiku-4-5-20251001",
+  "rep": 0,
+  "cost_usd": 0.04553,
+  "output_tokens": 6158,
+  "ops": [
+   {
+    "op": "replace",
+    "name": "assess",
+    "source": "fn assess(question: Str, name: Str) -> Finding {\n  let info = pypi.info(name) retry 1\n  if info.summary == \"\" {\n    return { package: name, verdict: \"avoid\", reasons: [\"no summary on PyPI\"], evidence: [] }\n  }\n  let releases = take(pypi.releases(name) retry 1 else [], 5)\n  let readme = if contains(info.source_url, \"github.com/\") {\n    github.readme(repo_of(info.source_url)) retry 1 else \"\"\n  } else {\n    \"\"\n  }\n  let excerpt = take(split(readme, \"\\n\"), 60)\n  let facts = { info: info, recent_releases: releases, readme_excerpt: join(excerpt, \"\\n\") }\n  return llm.ask(Finding, \"Assess package {name} for this question: {question}. Cite evidence as short quotes or metadata fields from the context.\", context: facts) retry 1\n}"
+   }
+  ],
+  "apply_ok": true,
+  "checks": {
+   "compiles": true,
+   "runs": true,
+   "empty -> avoid": true,
+   "empty reasons/evidence": true,
+   "no model call for empty": true,
+   "regression: assess": true,
+   "_check_failed": null,
+   "_error": null
+  },
+  "changed_lines": 8,
+  "comments_kept": true
+ },
+ {
+  "task": "T3",
+  "cond": "full",
+  "model": "claude-haiku-4-5-20251001",
+  "rep": 0,
+  "cost_usd": 0.024753999999999998,
+  "output_tokens": 2062,
+  "apply_ok": true,
+  "checks": {
+   "compiles": true,
+   "non-EUR -> review": true,
+   "review reason": true,
+   "no payment": true,
+   "regression: EUR scheduled": true,
+   "regression: bank change review": true,
+   "_check_failed": null,
+   "_error": null
+  },
+  "changed_lines": 6,
+  "comments_kept": true
+ },
+ {
+  "task": "T3",
+  "cond": "patch",
+  "model": "claude-haiku-4-5-20251001",
+  "rep": 0,
+  "cost_usd": 0.043745,
+  "output_tokens": 5765,
+  "ops": [
+   {
+    "op": "replace",
+    "name": "process",
+    "source": "fn process(path: Str) -> Outcome {\n  let text = inbox.read(path)\n  let inv = llm.ask(Invoice, \"Extract the invoice fields. Use \\\"\\\" for a missing IBAN.\", context: text) retry 1\n  let vendor = vendors.lookup(inv.vendor)\n  if inv.currency != \"EUR\" {\n    review.queue(path, \"non-EUR invoice\")\n    return { path: path, status: \"review\", detail: \"non-EUR invoice\" }\n  }\n  if inv.iban_on_invoice != \"\" and replace(inv.iban_on_invoice, \" \", \"\") != vendor.iban {\n    review.queue(path, \"bank details on the invoice differ from the vendor master\")\n    return { path: path, status: \"review\", detail: \"bank details differ\" }\n  }\n  if inv.amount > vendor.max_auto_pay {\n    review.queue(path, \"amount above the vendor's automatic limit\")\n    return { path: path, status: \"review\", detail: \"amount {inv.amount} over limit\" }\n  }\n  # Bank details always come from the vendor master, never from the document.\n  payments.schedule(vendor_id: vendor.id, iban: vendor.iban, amount: inv.amount, reference: inv.invoice_no)\n  return { path: path, status: \"scheduled\", detail: \"{inv.amount} {inv.currency}\" }\n}"
+   }
+  ],
+  "apply_ok": true,
+  "checks": {
+   "compiles": true,
+   "non-EUR -> review": true,
+   "review reason": true,
+   "no payment": true,
+   "regression: EUR scheduled": true,
+   "regression: bank change review": true,
+   "_check_failed": null,
+   "_error": null
+  },
+  "changed_lines": 6,
+  "comments_kept": true
+ },
+ {
+  "task": "T4",
+  "cond": "full",
+  "model": "claude-haiku-4-5-20251001",
+  "rep": 0,
+  "cost_usd": 0.022621,
+  "output_tokens": 1703,
+  "apply_ok": true,
+  "checks": {
+   "compiles": true,
+   "gave up message": true,
+   "one model call": true,
+   "one test run": true,
+   "regression: fix": true,
+   "regression: pass": true,
+   "_check_failed": null,
+   "_error": null
+  },
+  "changed_lines": 4,
+  "comments_kept": true
+ },
+ {
+  "task": "T4",
+  "cond": "patch",
+  "model": "claude-haiku-4-5-20251001",
+  "rep": 0,
+  "cost_usd": 0.021381999999999998,
+  "output_tokens": 1360,
+  "ops": [
+   {
+    "op": "replace",
+    "name": "main",
+    "source": "fn main(task: Str) -> Str {\n  var status = \"not fixed after 3 edits\"\n  for attempt in range(3) {\n    let result = tests.run()\n    if result.passed {\n      status = \"tests pass after {attempt} edit(s)\"\n      break\n    }\n    let sources = for f in repo.files() if endswith(f, \".py\") {\n      { path: f, content: repo.read(f) }\n    }\n    let patch = propose(task, result.output, sources)\n    let applied = repo.edit(patch.path, patch.find, patch.replace) else false\n    if not applied {\n      return \"gave up: edit could not be applied\"\n    }\n  }\n  if startswith(status, \"not fixed\") {\n    if tests.run().passed {\n      status = \"tests pass after 3 edit(s)\"\n    }\n  }\n  return status\n}"
+   }
+  ],
+  "apply_ok": true,
+  "checks": {
+   "compiles": true,
+   "gave up message": true,
+   "one model call": true,
+   "one test run": true,
+   "regression: fix": true,
+   "regression: pass": true,
+   "_check_failed": null,
+   "_error": null
+  },
+  "changed_lines": 4,
+  "comments_kept": true
+ },
+ {
+  "task": "T5",
+  "cond": "full",
+  "model": "claude-haiku-4-5-20251001",
+  "rep": 0,
+  "cost_usd": 0.08300600000000001,
+  "output_tokens": 13598,
+  "apply_ok": true,
+  "checks": {
+   "compiles": true,
+   "runs": true,
+   "judge called twice": true,
+   "later disagreements unsupported": true,
+   "first two judged": true,
+   "regression": true,
+   "_check_failed": null,
+   "_error": null
+  },
+  "changed_lines": 27,
+  "comments_kept": true
+ },
+ {
+  "task": "T5",
+  "cond": "patch",
+  "model": "claude-haiku-4-5-20251001",
+  "rep": 0,
+  "cost_usd": 0.06059200000000001,
+  "output_tokens": 9020,
+  "ops": [
+   {
+    "op": "replace",
+    "name": "main",
+    "source": "fn main(statement: Str, package: Str) -> Report {\n  let info = pypi.info(package) retry 1\n  let releases = take(pypi.releases(package) retry 1 else [], 8)\n  let readme = if contains(info.source_url, \"github.com/\") {\n    github.readme(repo_of(info.source_url)) retry 1 else \"\"\n  } else {\n    \"\"\n  }\n  let evidence = { pypi: info, recent_releases: releases, readme_start: join(take(split(readme, \"\\n\"), 80), \"\\n\") }\n  let claims = Extractor.ask(Claims, \"List the factual claims this statement makes about the package {package}.\", context: statement)\n  \n  var judge_calls = 0\n  let verdicts = for c in claims.claims {\n    let a = Verifier.ask(Check, \"Claim: {c}\", context: evidence)\n    let b = Auditor.ask(Check, \"Claim: {c}\", context: evidence)\n    if a.verdict == b.verdict {\n      { claim: c, verdict: a.verdict, agreed: true, quote: a.quote }\n    } else {\n      if judge_calls < 2 {\n        let j = Judge.ask(Check, \"Claim: {c}\\nChecker A said {a.verdict} (quote: {a.quote}). Checker B said {b.verdict} (quote: {b.quote}).\", context: evidence)\n        judge_calls = judge_calls + 1\n        { claim: c, verdict: j.verdict, agreed: false, quote: j.quote }\n      } else {\n        { claim: c, verdict: \"unsupported\", agreed: false, quote: \"\" }\n      }\n    }\n  }\n  let supported = for v in verdicts if v.verdict == \"supported\" {\n    1\n  }\n  return { package: package, verdicts: verdicts, supported: len(supported), total: len(verdicts) }\n}"
+   },
+   {
+    "op": "delete",
+    "name": "check"
+   }
+  ],
+  "apply_ok": true,
+  "checks": {
+   "compiles": true,
+   "runs": true,
+   "judge called twice": true,
+   "later disagreements unsupported": true,
+   "first two judged": true,
+   "regression": true,
+   "_check_failed": null,
+   "_error": null
+  },
+  "changed_lines": 38,
+  "comments_kept": true
+ },
+ {
+  "task": "T1",
+  "cond": "full",
+  "model": "claude-haiku-4-5-20251001",
+  "rep": 1,
+  "cost_usd": 0.008975499999999999,
+  "output_tokens": 1648,
+  "apply_ok": true,
+  "checks": {
+   "compiles": true,
+   "complaint outcome": true,
+   "no refund": true,
+   "reply sent": true,
+   "regression: refund": true,
+   "regression: ownership": true,
+   "_check_failed": null,
+   "_error": null
+  },
+  "changed_lines": 3,
+  "comments_kept": true
+ },
+ {
+  "task": "T1",
+  "cond": "patch",
+  "model": "claude-haiku-4-5-20251001",
+  "rep": 1,
+  "cost_usd": 0.0101143,
+  "output_tokens": 1871,
+  "ops": [
+   {
+    "op": "replace",
+    "name": "Triage",
+    "source": "type Triage = { intent: \"refund\" | \"question\" | \"complaint\" | \"other\", order_id: Str, summary: Str }"
+   },
+   {
+    "op": "replace",
+    "name": "main",
+    "source": "fn main(ticket: Ticket) -> Str {\n  # The recipient comes from the CRM, never from ticket text.\n  let customer = crm.find_customer(ticket.sender)\n  let t = llm.ask(Triage, \"Classify this support ticket. Use order_id \\\"\\\" if none is given.\", context: ticket.body) retry 1\n  let outcome = match t.intent {\n    \"refund\" => refund(customer, t.order_id)\n    \"question\" => \"answered\"\n    \"complaint\" => \"escalated: complaint\"\n    \"other\" => \"escalated to a human\"\n  }\n  let reply = llm.ask(Reply, \"Write a short, polite reply to {customer.name}. Outcome: {outcome}\", context: t.summary) retry 1\n  email.send(to: customer.email, subject: \"Re: {ticket.subject}\", body: reply.body)\n  return outcome\n}"
+   }
+  ],
+  "apply_ok": true,
+  "checks": {
+   "compiles": true,
+   "complaint outcome": true,
+   "no refund": true,
+   "reply sent": true,
+   "regression: refund": true,
+   "regression: ownership": true,
+   "_check_failed": null,
+   "_error": null
+  },
+  "changed_lines": 9,
+  "comments_kept": true
+ },
+ {
+  "task": "T2",
+  "cond": "full",
+  "model": "claude-haiku-4-5-20251001",
+  "rep": 1,
+  "cost_usd": 0.0153027,
+  "output_tokens": 2916,
+  "apply_ok": true,
+  "checks": {
+   "compiles": true,
+   "runs": true,
+   "empty -> avoid": true,
+   "empty reasons/evidence": true,
+   "no model call for empty": true,
+   "regression: assess": true,
+   "_check_failed": null,
+   "_error": null
+  },
+  "changed_lines": 5,
+  "comments_kept": true
+ },
+ {
+  "task": "T2",
+  "cond": "patch",
+  "model": "claude-haiku-4-5-20251001",
+  "rep": 1,
+  "cost_usd": 0.0228665,
+  "output_tokens": 4424,
+  "ops": [
+   {
+    "op": "replace",
+    "name": "assess",
+    "source": "fn assess(question: Str, name: Str) -> Finding {\n  let info = pypi.info(name) retry 1\n  if info.summary == \"\" {\n    return { package: name, verdict: \"avoid\", reasons: [\"no summary on PyPI\"], evidence: [] }\n  }\n  let releases = take(pypi.releases(name) retry 1 else [], 5)\n  let readme = if contains(info.source_url, \"github.com/\") {\n    github.readme(repo_of(info.source_url)) retry 1 else \"\"\n  } else {\n    \"\"\n  }\n  let excerpt = take(split(readme, \"\\n\"), 60)\n  let facts = { info: info, recent_releases: releases, readme_excerpt: join(excerpt, \"\\n\") }\n  return llm.ask(Finding, \"Assess package {name} for this question: {question}. Cite evidence as short quotes or metadata fields from the context.\", context: facts) retry 1\n}"
+   }
+  ],
+  "apply_ok": true,
+  "checks": {
+   "compiles": true,
+   "runs": true,
+   "empty -> avoid": true,
+   "empty reasons/evidence": true,
+   "no model call for empty": true,
+   "regression: assess": true,
+   "_check_failed": null,
+   "_error": null
+  },
+  "changed_lines": 8,
+  "comments_kept": true
+ },
+ {
+  "task": "T3",
+  "cond": "full",
+  "model": "claude-haiku-4-5-20251001",
+  "rep": 1,
+  "cost_usd": 0.012451700000000001,
+  "output_tokens": 2344,
+  "apply_ok": true,
+  "checks": {
+   "compiles": true,
+   "non-EUR -> review": true,
+   "review reason": true,
+   "no payment": true,
+   "regression: EUR scheduled": true,
+   "regression: bank change review": true,
+   "_check_failed": null,
+   "_error": null
+  },
+  "changed_lines": 9,
+  "comments_kept": true
+ },
+ {
+  "task": "T3",
+  "cond": "patch",
+  "model": "claude-haiku-4-5-20251001",
+  "rep": 1,
+  "cost_usd": 0.03689050000000001,
+  "output_tokens": 7227,
+  "ops": [
+   {
+    "op": "replace",
+    "name": "process",
+    "source": "fn process(path: Str) -> Outcome {\n  let text = inbox.read(path)\n  let inv = llm.ask(Invoice, \"Extract the invoice fields. Use \\\"\\\" for a missing IBAN.\", context: text) retry 1\n  \n  # Check currency first, before any other processing\n  if inv.currency != \"EUR\" {\n    review.queue(path, \"non-EUR invoice\")\n    return { path: path, status: \"review\", detail: \"non-EUR invoice\" }\n  }\n  \n  let vendor = vendors.lookup(inv.vendor)\n  if inv.iban_on_invoice != \"\" and replace(inv.iban_on_invoice, \" \", \"\") != vendor.iban {\n    review.queue(path, \"bank details on the invoice differ from the vendor master\")\n    return { path: path, status: \"review\", detail: \"bank details differ\" }\n  }\n  if inv.amount > vendor.max_auto_pay {\n    review.queue(path, \"amount above the vendor's automatic limit\")\n    return { path: path, status: \"review\", detail: \"amount {inv.amount} over limit\" }\n  }\n  # Bank details always come from the vendor master, never from the document.\n  payments.schedule(vendor_id: vendor.id, iban: vendor.iban, amount: inv.amount, reference: inv.invoice_no)\n  return { path: path, status: \"scheduled\", detail: \"{inv.amount} {inv.currency}\" }\n}"
+   }
+  ],
+  "apply_ok": true,
+  "checks": {
+   "compiles": true,
+   "non-EUR -> review": true,
+   "review reason": true,
+   "no payment": true,
+   "regression: EUR scheduled": true,
+   "regression: bank change review": true,
+   "_check_failed": null,
+   "_error": null
+  },
+  "changed_lines": 7,
+  "comments_kept": true
+ },
+ {
+  "task": "T4",
+  "cond": "full",
+  "model": "claude-haiku-4-5-20251001",
+  "rep": 1,
+  "cost_usd": 0.012564800000000001,
+  "output_tokens": 2370,
+  "apply_ok": true,
+  "checks": {
+   "compiles": true,
+   "gave up message": true,
+   "one model call": true,
+   "one test run": true,
+   "regression: fix": true,
+   "regression: pass": true,
+   "_check_failed": null,
+   "_error": null
+  },
+  "changed_lines": 2,
+  "comments_kept": true
+ },
+ {
+  "task": "T4",
+  "cond": "patch",
+  "model": "claude-haiku-4-5-20251001",
+  "rep": 1,
+  "cost_usd": 0.009518599999999999,
+  "output_tokens": 1756,
+  "ops": [
+   {
+    "op": "replace",
+    "name": "main",
+    "source": "fn main(task: Str) -> Str {\n  var status = \"not fixed after 3 edits\"\n  for attempt in range(3) {\n    let result = tests.run()\n    if result.passed {\n      status = \"tests pass after {attempt} edit(s)\"\n      break\n    }\n    let sources = for f in repo.files() if endswith(f, \".py\") {\n      { path: f, content: repo.read(f) }\n    }\n    let patch = propose(task, result.output, sources)\n    let applied = repo.edit(patch.path, patch.find, patch.replace) else false\n    if not applied {\n      status = \"gave up: edit could not be applied\"\n      break\n    }\n  }\n  if startswith(status, \"not fixed\") {\n    if tests.run().passed {\n      status = \"tests pass after 3 edit(s)\"\n    }\n  }\n  return status\n}"
+   }
+  ],
+  "apply_ok": true,
+  "checks": {
+   "compiles": true,
+   "gave up message": true,
+   "one model call": true,
+   "one test run": true,
+   "regression: fix": true,
+   "regression: pass": true,
+   "_check_failed": null,
+   "_error": null
+  },
+  "changed_lines": 5,
+  "comments_kept": true
+ },
+ {
+  "task": "T5",
+  "cond": "full",
+  "model": "claude-haiku-4-5-20251001",
+  "rep": 1,
+  "cost_usd": 0.053145300000000006,
+  "output_tokens": 10477,
+  "apply_ok": true,
+  "checks": {
+   "compiles": true,
+   "runs": true,
+   "judge called twice": true,
+   "later disagreements unsupported": true,
+   "first two judged": true,
+   "regression": true,
+   "_check_failed": null,
+   "_error": null
+  },
+  "changed_lines": 21,
+  "comments_kept": true
+ },
+ {
+  "task": "T5",
+  "cond": "patch",
+  "model": "claude-haiku-4-5-20251001",
+  "rep": 1,
+  "cost_usd": 0.0554491,
+  "output_tokens": 10933,
+  "ops": [
+   {
+    "op": "replace",
+    "name": "Judge",
+    "source": "agent Judge {\n  model: llm\n  system: \"You resolve disagreements between two checkers by re-reading the evidence. Quote it.\"\n  max_calls: 2\n}"
+   },
+   {
+    "op": "replace",
+    "name": "main",
+    "source": "fn main(statement: Str, package: Str) -> Report {\n  let info = pypi.info(package) retry 1\n  let releases = take(pypi.releases(package) retry 1 else [], 8)\n  let readme = if contains(info.source_url, \"github.com/\") {\n    github.readme(repo_of(info.source_url)) retry 1 else \"\"\n  } else {\n    \"\"\n  }\n  let evidence = { pypi: info, recent_releases: releases, readme_start: join(take(split(readme, \"\\n\"), 80), \"\\n\") }\n  let claims = Extractor.ask(Claims, \"List the factual claims this statement makes about the package {package}.\", context: statement)\n  \n  var judge_calls = 0\n  let verdicts = for c in claims.claims {\n    let a = Verifier.ask(Check, \"Claim: {c}\", context: evidence)\n    let b = Auditor.ask(Check, \"Claim: {c}\", context: evidence)\n    if a.verdict == b.verdict {\n      { claim: c, verdict: a.verdict, agreed: true, quote: a.quote }\n    } else {\n      if judge_calls < 2 {\n        judge_calls = judge_calls + 1\n        let j = Judge.ask(Check, \"Claim: {c}\\nChecker A said {a.verdict} (quote: {a.quote}). Checker B said {b.verdict} (quote: {b.quote}).\", context: evidence)\n        { claim: c, verdict: j.verdict, agreed: false, quote: j.quote }\n      } else {\n        { claim: c, verdict: \"unsupported\", agreed: false, quote: \"\" }\n      }\n    }\n  }\n  \n  let supported = for v in verdicts if v.verdict == \"supported\" {\n    1\n  }\n  return { package: package, verdicts: verdicts, supported: len(supported), total: len(verdicts) }\n}"
+   },
+   {
+    "op": "delete",
+    "name": "check"
+   }
+  ],
+  "apply_ok": true,
+  "checks": {
+   "compiles": false,
+   "runs": true,
+   "judge called twice": false,
+   "later disagreements unsupported": false,
+   "later disagreements unsupported:exception": "TypeError: 'NoneType' object is not subscriptable",
+   "first two judged": false,
+   "first two judged:exception": "TypeError: 'NoneType' object is not subscriptable",
+   "regression": false,
+   "regression:exception": "TypeError: 'NoneType' object is not subscriptable",
+   "_check_failed": [
+    "E0403 agent 'Judge' may be called up to 5 times, but its max_calls is 2"
+   ],
+   "_error": null
+  },
+  "changed_lines": 40,
+  "comments_kept": true
+ },
+ {
+  "task": "T1",
+  "cond": "full",
+  "model": "claude-haiku-4-5-20251001",
+  "rep": 2,
+  "cost_usd": 0.0094805,
+  "output_tokens": 1749,
+  "apply_ok": true,
+  "checks": {
+   "compiles": true,
+   "complaint outcome": true,
+   "no refund": true,
+   "reply sent": true,
+   "regression: refund": true,
+   "regression: ownership": true,
+   "_check_failed": null,
+   "_error": null
+  },
+  "changed_lines": 5,
+  "comments_kept": true
+ },
+ {
+  "task": "T1",
+  "cond": "patch",
+  "model": "claude-haiku-4-5-20251001",
+  "rep": 2,
+  "cost_usd": 0.011224299999999998,
+  "output_tokens": 2093,
+  "ops": [
+   {
+    "op": "replace",
+    "name": "Triage",
+    "source": "type Triage = { intent: \"refund\" | \"question\" | \"complaint\" | \"other\", order_id: Str, summary: Str }"
+   },
+   {
+    "op": "replace",
+    "name": "main",
+    "source": "fn main(ticket: Ticket) -> Str {\n  # The recipient comes from the CRM, never from ticket text.\n  let customer = crm.find_customer(ticket.sender)\n  let t = llm.ask(Triage, \"Classify this support ticket. Use order_id \\\"\\\" if none is given.\", context: ticket.body) retry 1\n  let outcome = match t.intent {\n    \"refund\" => refund(customer, t.order_id)\n    \"question\" => \"answered\"\n    \"complaint\" => \"escalated: complaint\"\n    \"other\" => \"escalated to a human\"\n  }\n  let reply = llm.ask(Reply, \"Write a short, polite reply to {customer.name}. Outcome: {outcome}\", context: t.summary) retry 1\n  email.send(to: customer.email, subject: \"Re: {ticket.subject}\", body: reply.body)\n  return outcome\n}"
+   }
+  ],
+  "apply_ok": true,
+  "checks": {
+   "compiles": true,
+   "complaint outcome": true,
+   "no refund": true,
+   "reply sent": true,
+   "regression: refund": true,
+   "regression: ownership": true,
+   "_check_failed": null,
+   "_error": null
+  },
+  "changed_lines": 9,
+  "comments_kept": true
+ },
+ {
+  "task": "T2",
+  "cond": "full",
+  "model": "claude-haiku-4-5-20251001",
+  "rep": 2,
+  "cost_usd": 0.0084277,
+  "output_tokens": 1541,
+  "apply_ok": true,
+  "checks": {
+   "compiles": true,
+   "runs": true,
+   "empty -> avoid": true,
+   "empty reasons/evidence": true,
+   "no model call for empty": true,
+   "regression: assess": true,
+   "_check_failed": null,
+   "_error": null
+  },
+  "changed_lines": 5,
+  "comments_kept": true
+ },
+ {
+  "task": "T2",
+  "cond": "patch",
+  "model": "claude-haiku-4-5-20251001",
+  "rep": 2,
+  "cost_usd": 0.0080915,
+  "output_tokens": 1469,
+  "ops": [
+   {
+    "op": "replace",
+    "name": "assess",
+    "source": "fn assess(question: Str, name: Str) -> Finding {\n  let info = pypi.info(name) retry 1\n  if info.summary == \"\" {\n    return { package: name, verdict: \"avoid\", reasons: [\"no summary on PyPI\"], evidence: [] }\n  }\n  let releases = take(pypi.releases(name) retry 1 else [], 5)\n  let readme = if contains(info.source_url, \"github.com/\") {\n    github.readme(repo_of(info.source_url)) retry 1 else \"\"\n  } else {\n    \"\"\n  }\n  let excerpt = take(split(readme, \"\\n\"), 60)\n  let facts = { info: info, recent_releases: releases, readme_excerpt: join(excerpt, \"\\n\") }\n  return llm.ask(Finding, \"Assess package {name} for this question: {question}. Cite evidence as short quotes or metadata fields from the context.\", context: facts) retry 1\n}"
+   }
+  ],
+  "apply_ok": true,
+  "checks": {
+   "compiles": true,
+   "runs": true,
+   "empty -> avoid": true,
+   "empty reasons/evidence": true,
+   "no model call for empty": true,
+   "regression: assess": true,
+   "_check_failed": null,
+   "_error": null
+  },
+  "changed_lines": 8,
+  "comments_kept": true
+ },
+ {
+  "task": "T3",
+  "cond": "full",
+  "model": "claude-haiku-4-5-20251001",
+  "rep": 2,
+  "cost_usd": 0.012581700000000001,
+  "output_tokens": 2370,
+  "apply_ok": true,
+  "checks": {
+   "compiles": true,
+   "non-EUR -> review": true,
+   "review reason": true,
+   "no payment": true,
+   "regression: EUR scheduled": true,
+   "regression: bank change review": true,
+   "_check_failed": null,
+   "_error": null
+  },
+  "changed_lines": 4,
+  "comments_kept": true
+ },
+ {
+  "task": "T3",
+  "cond": "patch",
+  "model": "claude-haiku-4-5-20251001",
+  "rep": 2,
+  "cost_usd": 0.008855499999999999,
+  "output_tokens": 1620,
+  "ops": [
+   {
+    "op": "replace",
+    "name": "process",
+    "source": "fn process(path: Str) -> Outcome {\n  let text = inbox.read(path)\n  let inv = llm.ask(Invoice, \"Extract the invoice fields. Use \\\"\\\" for a missing IBAN.\", context: text) retry 1\n  if inv.currency != \"EUR\" {\n    review.queue(path, \"non-EUR invoice\")\n    return { path: path, status: \"review\", detail: \"non-EUR invoice\" }\n  }\n  let vendor = vendors.lookup(inv.vendor)\n  if inv.iban_on_invoice != \"\" and replace(inv.iban_on_invoice, \" \", \"\") != vendor.iban {\n    review.queue(path, \"bank details on the invoice differ from the vendor master\")\n    return { path: path, status: \"review\", detail: \"bank details differ\" }\n  }\n  if inv.amount > vendor.max_auto_pay {\n    review.queue(path, \"amount above the vendor's automatic limit\")\n    return { path: path, status: \"review\", detail: \"amount {inv.amount} over limit\" }\n  }\n  # Bank details always come from the vendor master, never from the document.\n  payments.schedule(vendor_id: vendor.id, iban: vendor.iban, amount: inv.amount, reference: inv.invoice_no)\n  return { path: path, status: \"scheduled\", detail: \"{inv.amount} {inv.currency}\" }\n}"
+   }
+  ],
+  "apply_ok": true,
+  "checks": {
+   "compiles": true,
+   "non-EUR -> review": true,
+   "review reason": true,
+   "no payment": true,
+   "regression: EUR scheduled": true,
+   "regression: bank change review": true,
+   "_check_failed": null,
+   "_error": null
+  },
+  "changed_lines": 6,
+  "comments_kept": true
+ },
+ {
+  "task": "T4",
+  "cond": "full",
+  "model": "claude-haiku-4-5-20251001",
+  "rep": 2,
+  "cost_usd": 0.0092448,
+  "output_tokens": 1706,
+  "apply_ok": true,
+  "checks": {
+   "compiles": true,
+   "gave up message": true,
+   "one model call": true,
+   "one test run": true,
+   "regression: fix": true,
+   "regression: pass": true,
+   "_check_failed": null,
+   "_error": null
+  },
+  "changed_lines": 2,
+  "comments_kept": true
+ },
+ {
+  "task": "T4",
+  "cond": "patch",
+  "model": "claude-haiku-4-5-20251001",
+  "rep": 2,
+  "cost_usd": 0.0064886,
+  "output_tokens": 1150,
+  "ops": [
+   {
+    "op": "replace",
+    "name": "main",
+    "source": "fn main(task: Str) -> Str {\n  var status = \"not fixed after 3 edits\"\n  for attempt in range(3) {\n    let result = tests.run()\n    if result.passed {\n      status = \"tests pass after {attempt} edit(s)\"\n      break\n    }\n    let sources = for f in repo.files() if endswith(f, \".py\") {\n      { path: f, content: repo.read(f) }\n    }\n    let patch = propose(task, result.output, sources)\n    let applied = repo.edit(patch.path, patch.find, patch.replace) else false\n    if not applied {\n      return \"gave up: edit could not be applied\"\n    }\n  }\n  if startswith(status, \"not fixed\") {\n    if tests.run().passed {\n      status = \"tests pass after 3 edit(s)\"\n    }\n  }\n  return status\n}"
+   }
+  ],
+  "apply_ok": true,
+  "checks": {
+   "compiles": true,
+   "gave up message": true,
+   "one model call": true,
+   "one test run": true,
+   "regression: fix": true,
+   "regression: pass": true,
+   "_check_failed": null,
+   "_error": null
+  },
+  "changed_lines": 4,
+  "comments_kept": true
+ },
+ {
+  "task": "T5",
+  "cond": "full",
+  "model": "claude-haiku-4-5-20251001",
+  "rep": 2,
+  "cost_usd": 0.04437030000000001,
+  "output_tokens": 8722,
+  "apply_ok": true,
+  "checks": {
+   "compiles": false,
+   "runs": true,
+   "judge called twice": false,
+   "later disagreements unsupported": false,
+   "later disagreements unsupported:exception": "TypeError: 'NoneType' object is not subscriptable",
+   "first two judged": false,
+   "first two judged:exception": "TypeError: 'NoneType' object is not subscriptable",
+   "regression": false,
+   "regression:exception": "TypeError: 'NoneType' object is not subscriptable",
+   "_check_failed": [
+    "E0403 agent 'Judge' may be called up to 5 times, but its max_calls is 2"
+   ],
+   "_error": null
+  },
+  "changed_lines": 21,
+  "comments_kept": true
+ },
+ {
+  "task": "T5",
+  "cond": "patch",
+  "model": "claude-haiku-4-5-20251001",
+  "rep": 2,
+  "cost_usd": 0.0762241,
+  "output_tokens": 15088,
+  "ops": [
+   {
+    "op": "replace",
+    "name": "main",
+    "source": "fn main(statement: Str, package: Str) -> Report {\n  let info = pypi.info(package) retry 1\n  let releases = take(pypi.releases(package) retry 1 else [], 8)\n  let readme = if contains(info.source_url, \"github.com/\") {\n    github.readme(repo_of(info.source_url)) retry 1 else \"\"\n  } else {\n    \"\"\n  }\n  let evidence = { pypi: info, recent_releases: releases, readme_start: join(take(split(readme, \"\\n\"), 80), \"\\n\") }\n  let claims = Extractor.ask(Claims, \"List the factual claims this statement makes about the package {package}.\", context: statement)\n  \n  let checks = for c in claims.claims {\n    let verifier_check = Verifier.ask(Check, \"Claim: {c}\", context: evidence)\n    let auditor_check = Auditor.ask(Check, \"Claim: {c}\", context: evidence)\n    { claim: c, verifier: verifier_check, auditor: auditor_check }\n  }\n  \n  let disagreed_claims = for check in checks if check.verifier.verdict != check.auditor.verdict {\n    check.claim\n  }\n  let first_two_to_judge = take(disagreed_claims, 2)\n  \n  let verdicts = for check in checks {\n    if check.verifier.verdict == check.auditor.verdict {\n      { claim: check.claim, verdict: check.verifier.verdict, agreed: true, quote: check.verifier.quote }\n    } else if check.claim in first_two_to_judge {\n      let judge_result = Judge.ask(Check, \"Claim: {check.claim}\\nChecker A said {check.verifier.verdict} (quote: {check.verifier.quote}). Checker B said {check.auditor.verdict} (quote: {check.auditor.quote}).\", context: evidence)\n      { claim: check.claim, verdict: judge_result.verdict, agreed: false, quote: judge_result.quote }\n    } else {\n      { claim: check.claim, verdict: \"unsupported\", agreed: false, quote: \"\" }\n    }\n  }\n  \n  let supported = for v in verdicts if v.verdict == \"supported\" {\n    1\n  }\n  return { package: package, verdicts: verdicts, supported: len(supported), total: len(verdicts) }\n}"
+   },
+   {
+    "op": "replace",
+    "name": "Judge",
+    "source": "agent Judge {\n  model: llm\n  system: \"You resolve disagreements between two checkers by re-reading the evidence. Quote it.\"\n  max_calls: 2\n}"
+   },
+   {
+    "op": "delete",
+    "name": "check"
+   }
+  ],
+  "apply_ok": true,
+  "checks": {
+   "compiles": false,
+   "runs": true,
+   "judge called twice": false,
+   "later disagreements unsupported": false,
+   "later disagreements unsupported:exception": "TypeError: 'NoneType' object is not subscriptable",
+   "first two judged": false,
+   "first two judged:exception": "TypeError: 'NoneType' object is not subscriptable",
+   "regression": false,
+   "regression:exception": "TypeError: 'NoneType' object is not subscriptable",
+   "_check_failed": [
+    "E0403 agent 'Judge' may be called up to 5 times, but its max_calls is 2"
+   ],
+   "_error": null
+  },
+  "changed_lines": 55,
+  "comments_kept": true
+ }
+]

@@ -1,0 +1,18 @@
+{
+  "name": "remit-lang",
+  "displayName": "Remit language support",
+  "description": "Syntax highlighting for Remit programs (.rmt) and host interfaces (.rmti). Prototype.",
+  "version": "0.1.0",
+  "publisher": "remit-prototype",
+  "engines": { "vscode": "^1.80.0" },
+  "categories": ["Programming Languages"],
+  "contributes": {
+    "languages": [{
+      "id": "remit",
+      "aliases": ["Remit", "remit"],
+      "extensions": [".rmt", ".rmti"],
+      "configuration": "./language-configuration.json"
+    }],
+    "grammars": [{ "language": "remit", "scopeName": "source.remit", "path": "./syntaxes/axiom.tmLanguage.json" }]
+  }
+}

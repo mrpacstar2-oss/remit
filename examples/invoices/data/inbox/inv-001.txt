@@ -1,0 +1,6 @@
+INVOICE  #NW-4471
+From: Northwind Paper
+Date: 2026-09-28
+Item: A4 paper, 40 boxes ............ EUR 612.00
+Total due: EUR 612.00
+Pay to: GB33 BUKB 2020 1555 5555 55

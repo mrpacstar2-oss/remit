@@ -1,0 +1,9 @@
+{"_note": "OFFLINE FIXTURE",
+ "approve_all": true,
+ "capabilities": {
+  "inbox.read": [{"args": {"path": "inbox/inv-001.txt"}, "output": "INVOICE #NW-4471 Northwind Paper EUR 612.00"}],
+  "vendors.lookup": [{"args": {"name": "Northwind Paper"}, "output": {"id": "V-10", "name": "Northwind Paper", "iban": "GB33BUKB20201555555555", "max_auto_pay": 2000.0}}],
+  "payments.schedule": [{"output": null}]
+ },
+ "model": [{"output": {"vendor": "Northwind Paper", "invoice_no": "NW-4471", "amount": 612.0, "currency": "EUR", "iban_on_invoice": "GB33 BUKB 2020 1555 5555 55"}}]
+}

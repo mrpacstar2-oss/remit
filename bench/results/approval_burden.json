@@ -1,0 +1,44 @@
+[
+ {
+  "app": "support",
+  "scenario": "refund ticket",
+  "axiom": 1,
+  "python": 0,
+  "python_strict": 2
+ },
+ {
+  "app": "support",
+  "scenario": "question ticket",
+  "axiom": 0,
+  "python": 0,
+  "python_strict": 1
+ },
+ {
+  "app": "invoices",
+  "scenario": "3 invoices",
+  "axiom": 1,
+  "python": 0,
+  "python_strict": 1
+ },
+ {
+  "app": "coding",
+  "scenario": "one-edit fix",
+  "axiom": 0,
+  "python": 0,
+  "python_strict": 1
+ },
+ {
+  "app": "research",
+  "scenario": "3 packages",
+  "axiom": 0,
+  "python": 0,
+  "python_strict": 0
+ },
+ {
+  "app": "verify",
+  "scenario": "2 claims",
+  "axiom": 0,
+  "python": 0,
+  "python_strict": 0
+ }
+]

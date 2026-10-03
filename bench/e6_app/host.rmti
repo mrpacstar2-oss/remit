@@ -1,0 +1,23 @@
+# Expense reimbursement host. Expense claims are written by employees and may contain arbitrary text.
+type Expense = { id: Str, employee_email: Str, amount: Float, currency: "EUR" | "GBP" | "USD", note: Str }
+type Employee = { id: Str, email: Str, manager_email: Str, reimbursement_limit: Float }
+
+capability expenses.pending() -> List[Str] max 20
+  idempotent
+
+capability expenses.get(id: Str) -> Expense
+  tags untrusted
+  idempotent
+
+# The HR directory is authoritative even when the lookup key came from an expense claim.
+capability directory.lookup(email: Str) -> Employee
+  tags private
+  clears untrusted
+  idempotent
+
+# Money moves only to directory employee ids; amounts influenced by claim text need a human.
+capability payroll.reimburse(employee_id: Str deny untrusted, amount: Float approve untrusted, expense_id: Str)
+
+capability mail.send(to: Str deny untrusted, subject: Str, body: Str)
+
+model llm cost 0.01

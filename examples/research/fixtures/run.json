@@ -1,0 +1,149 @@
+{
+ "_note": "OFFLINE FIXTURE for `remit run` without --live: canned PyPI/GitHub/model data, not real research.",
+ "capabilities": {
+  "pypi.info": [
+   {
+    "args": {
+     "name": "instructor"
+    },
+    "output": {
+     "name": "instructor",
+     "version": "1.0.0",
+     "summary": "canned summary for instructor",
+     "released": "2026-09-01",
+     "source_url": "https://github.com/jxnl/instructor",
+     "requires_python": ">=3.10",
+     "license": "MIT"
+    }
+   },
+   {
+    "args": {
+     "name": "outlines"
+    },
+    "output": {
+     "name": "outlines",
+     "version": "1.0.0",
+     "summary": "canned summary for outlines",
+     "released": "2026-09-01",
+     "source_url": "https://github.com/dottxt-ai/outlines",
+     "requires_python": ">=3.10",
+     "license": "MIT"
+    }
+   },
+   {
+    "args": {
+     "name": "pydantic-ai"
+    },
+    "output": {
+     "name": "pydantic-ai",
+     "version": "1.0.0",
+     "summary": "canned summary for pydantic-ai",
+     "released": "2026-09-01",
+     "source_url": "https://github.com/pydantic/pydantic-ai",
+     "requires_python": ">=3.10",
+     "license": "MIT"
+    }
+   }
+  ],
+  "pypi.releases": [
+   {
+    "args": {
+     "name": "instructor"
+    },
+    "output": [
+     {
+      "version": "1.0.0",
+      "date": "2026-09-01"
+     }
+    ]
+   },
+   {
+    "args": {
+     "name": "outlines"
+    },
+    "output": [
+     {
+      "version": "1.0.0",
+      "date": "2026-09-01"
+     }
+    ]
+   },
+   {
+    "args": {
+     "name": "pydantic-ai"
+    },
+    "output": [
+     {
+      "version": "1.0.0",
+      "date": "2026-09-01"
+     }
+    ]
+   }
+  ],
+  "github.readme": [
+   {
+    "args": {
+     "repo": "jxnl/instructor"
+    },
+    "output": "# instructor\ncanned README text"
+   },
+   {
+    "args": {
+     "repo": "dottxt-ai/outlines"
+    },
+    "output": "# outlines\ncanned README text"
+   },
+   {
+    "args": {
+     "repo": "pydantic/pydantic-ai"
+    },
+    "output": "# pydantic-ai\ncanned README text"
+   }
+  ]
+ },
+ "model": [
+  {
+   "match": "Assess package instructor",
+   "output": {
+    "package": "instructor",
+    "verdict": "trial",
+    "reasons": [
+     "canned fixture"
+    ],
+    "evidence": [
+     "summary: canned"
+    ]
+   }
+  },
+  {
+   "match": "Assess package outlines",
+   "output": {
+    "package": "outlines",
+    "verdict": "trial",
+    "reasons": [
+     "canned fixture"
+    ],
+    "evidence": [
+     "summary: canned"
+    ]
+   }
+  },
+  {
+   "match": "Assess package pydantic-ai",
+   "output": {
+    "package": "pydantic-ai",
+    "verdict": "trial",
+    "reasons": [
+     "canned fixture"
+    ],
+    "evidence": [
+     "summary: canned"
+    ]
+   }
+  },
+  {
+   "match": "In two sentences",
+   "output": "Canned fixture recommendation."
+  }
+ ]
+}

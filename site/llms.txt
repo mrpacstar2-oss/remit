@@ -1,0 +1,23 @@
+# Remit
+
+> A small, statically checked language for programs written by AI agents that call tools and models. Before a
+> program runs, the checker reports which capabilities it can use, at most how many times, the worst-case cost, and
+> whether untrusted data (documents, web pages, model output) can reach sensitive parameters such as payment
+> details or email recipients. A runtime broker then enforces the same rules.
+
+Use it when you need to write or modify an agent workflow whose actions must be reviewable before it runs.
+Connect the MCP server for tools that check, format and test programs: https://example.com/mcp (streamable HTTP), or run
+`remit mcp` locally (stdio).
+
+## Docs
+
+- [Quick guide for AI agents](https://example.com/guide.md): workflow, skeleton program, checker errors and how to fix them
+- [Language specification](https://example.com/spec.md): syntax, semantics, trust boundaries, diagnostics
+
+## Tools
+
+- [MCP server](https://example.com/mcp): remit_guide, remit_check, remit_format, remit_authority_diff, remit_examples, remit_run_fixtures
+
+## Optional
+
+- [Everything in one file](https://example.com/llms-full.txt)

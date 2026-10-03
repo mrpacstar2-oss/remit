@@ -1,0 +1,21 @@
+# Deployment policy. The program cannot widen it.
+[budget]
+max_usd = 0.10
+
+[grant."crm.find_customer"]
+max_calls = 2
+
+[grant."crm.order"]
+max_calls = 2
+
+[grant."payments.refund"]
+max_calls = 1
+
+[grant."email.send"]
+max_calls = 1
+
+[grant.llm]
+max_calls = 6
+
+[grant."kb.search"]
+max_calls = 2

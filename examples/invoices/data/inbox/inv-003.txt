@@ -1,0 +1,6 @@
+INVOICE  #NW-4502
+From: Northwind Paper
+Date: 2026-09-30
+Office furniture ..................... EUR 3,150.00
+Total due: EUR 3,150.00
+Pay to: GB33 BUKB 2020 1555 5555 55

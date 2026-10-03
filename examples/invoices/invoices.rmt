@@ -1,0 +1,44 @@
+program invoice_intake
+uses inbox.list, inbox.read, vendors.lookup, llm, payments.schedule, review.queue, report.write
+budget usd 0.60
+
+type Invoice = { vendor: Str, invoice_no: Str, amount: Float, currency: "EUR" | "GBP" | "USD", iban_on_invoice: Str }
+type Outcome = { path: Str, status: "scheduled" | "review", detail: Str }
+
+fn main() -> List[Outcome] max 25 {
+  let outcomes = for path in inbox.list("inbox") {
+    process(path)
+  }
+  let lines = for o in outcomes {
+    "{o.status}\t{o.path}\t{o.detail}"
+  }
+  report.write("intake-report.tsv", join(lines, "\n"))
+  return outcomes
+}
+
+fn process(path: Str) -> Outcome {
+  let text = inbox.read(path)
+  let inv = llm.ask(Invoice, "Extract the invoice fields. Use \"\" for a missing IBAN.", context: text) retry 1
+  let vendor = vendors.lookup(inv.vendor)
+  if inv.iban_on_invoice != "" and replace(inv.iban_on_invoice, " ", "") != vendor.iban {
+    review.queue(path, "bank details on the invoice differ from the vendor master")
+    return { path: path, status: "review", detail: "bank details differ" }
+  }
+  if inv.amount > vendor.max_auto_pay {
+    review.queue(path, "amount above the vendor's automatic limit")
+    return { path: path, status: "review", detail: "amount {inv.amount} over limit" }
+  }
+  # Bank details always come from the vendor master, never from the document.
+  payments.schedule(vendor_id: vendor.id, iban: vendor.iban, amount: inv.amount, reference: inv.invoice_no)
+  return { path: path, status: "scheduled", detail: "{inv.amount} {inv.currency}" }
+}
+
+test "changed bank details go to review" fixtures "fixtures/test_bec.json" {
+  let r = process("inbox/inv-002.txt")
+  expect r.status == "review"
+}
+
+test "normal invoice is scheduled" fixtures "fixtures/test_ok.json" {
+  let r = process("inbox/inv-001.txt")
+  expect r.status == "scheduled"
+}

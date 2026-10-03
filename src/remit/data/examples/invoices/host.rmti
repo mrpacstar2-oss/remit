@@ -1,0 +1,24 @@
+# Accounts-payable intake. Invoice files come from vendors (untrusted) and contain business data (private).
+type Vendor = { id: Str, name: Str, iban: Str, max_auto_pay: Float }
+
+capability inbox.list(folder: Str) -> List[Str] max 25
+  idempotent
+
+capability inbox.read(path: Str) -> Str
+  tags untrusted, private
+  idempotent
+
+# The vendor master is authoritative: it clears untrusted even when the lookup key came from an invoice.
+capability vendors.lookup(name: Str) -> Vendor
+  tags private
+  clears untrusted
+  idempotent
+
+# Bank details must come from the vendor master. Untrusted influence on the amount needs a human.
+capability payments.schedule(vendor_id: Str deny untrusted, iban: Str deny untrusted, amount: Float approve untrusted, reference: Str)
+
+capability review.queue(path: Str, reason: Str)
+
+capability report.write(name: Str, content: Str)
+
+model llm cost 0.01

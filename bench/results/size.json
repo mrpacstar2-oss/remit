@@ -1,0 +1,37 @@
+[
+ {
+  "app": "support",
+  "axiom_loc": 28,
+  "python_loc": 33,
+  "axiom_tokens": 222,
+  "python_tokens": 268
+ },
+ {
+  "app": "research",
+  "axiom_loc": 28,
+  "python_loc": 31,
+  "axiom_tokens": 304,
+  "python_tokens": 338
+ },
+ {
+  "app": "invoices",
+  "axiom_loc": 30,
+  "python_loc": 29,
+  "axiom_tokens": 300,
+  "python_tokens": 323
+ },
+ {
+  "app": "coding",
+  "axiom_loc": 33,
+  "python_loc": 32,
+  "axiom_tokens": 248,
+  "python_tokens": 260
+ },
+ {
+  "app": "verify",
+  "axiom_loc": 58,
+  "python_loc": 50,
+  "axiom_tokens": 497,
+  "python_tokens": 497
+ }
+]

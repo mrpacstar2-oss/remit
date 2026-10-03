@@ -1,0 +1,20 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-09-29/server.schema.json",
+  "name": "io.github.mrpacstar2-oss/remit",
+  "description": "Learn, check and test Remit programs: a checked language for AI-written agent workflows (authority, worst-case cost, data flows).",
+  "version": "0.1.0",
+  "repository": { "url": "https://github.com/mrpacstar2-oss/remit", "source": "github" },
+  "packages": [
+    {
+      "registryType": "pypi",
+      "identifier": "remit",
+      "version": "0.1.0",
+      "transport": { "type": "stdio" },
+      "runtimeHint": "uvx",
+      "packageArguments": [{ "type": "positional", "value": "mcp" }]
+    }
+  ],
+  "remotes": [
+    { "type": "streamable-http", "url": "https://YOUR-DOMAIN/mcp" }
+  ]
+}

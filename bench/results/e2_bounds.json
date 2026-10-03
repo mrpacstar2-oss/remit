@@ -1,0 +1,497 @@
+[
+  {
+    "app": "support",
+    "run": 1,
+    "error": null,
+    "seconds": 16.4,
+    "spent_usd": 0.0071,
+    "worst_case_usd": 0.04,
+    "models": [
+      "claude-haiku-4-5-20251001"
+    ],
+    "resources": {
+      "crm.find_customer": {
+        "observed": 1,
+        "bound": 1
+      },
+      "crm.order": {
+        "observed": 1,
+        "bound": 1
+      },
+      "email.send": {
+        "observed": 1,
+        "bound": 1
+      },
+      "llm": {
+        "observed": 2,
+        "bound": 4
+      },
+      "payments.refund": {
+        "observed": 1,
+        "bound": 1
+      }
+    }
+  },
+  {
+    "app": "support",
+    "run": 2,
+    "error": null,
+    "seconds": 17.4,
+    "spent_usd": 0.00769,
+    "worst_case_usd": 0.04,
+    "models": [
+      "claude-haiku-4-5-20251001"
+    ],
+    "resources": {
+      "crm.find_customer": {
+        "observed": 1,
+        "bound": 1
+      },
+      "crm.order": {
+        "observed": 1,
+        "bound": 1
+      },
+      "email.send": {
+        "observed": 1,
+        "bound": 1
+      },
+      "llm": {
+        "observed": 2,
+        "bound": 4
+      },
+      "payments.refund": {
+        "observed": 1,
+        "bound": 1
+      }
+    }
+  },
+  {
+    "app": "support",
+    "run": 3,
+    "error": null,
+    "seconds": 15.7,
+    "spent_usd": 0.007,
+    "worst_case_usd": 0.04,
+    "models": [
+      "claude-haiku-4-5-20251001"
+    ],
+    "resources": {
+      "crm.find_customer": {
+        "observed": 1,
+        "bound": 1
+      },
+      "crm.order": {
+        "observed": 1,
+        "bound": 1
+      },
+      "email.send": {
+        "observed": 1,
+        "bound": 1
+      },
+      "llm": {
+        "observed": 2,
+        "bound": 4
+      },
+      "payments.refund": {
+        "observed": 1,
+        "bound": 1
+      }
+    }
+  },
+  {
+    "app": "research",
+    "run": 1,
+    "error": null,
+    "seconds": 60.0,
+    "spent_usd": 0.03057,
+    "worst_case_usd": 0.24,
+    "models": [
+      "claude-haiku-4-5-20251001"
+    ],
+    "resources": {
+      "github.readme": {
+        "observed": 1,
+        "bound": 6
+      },
+      "llm": {
+        "observed": 4,
+        "bound": 8
+      },
+      "pypi.info": {
+        "observed": 3,
+        "bound": 6
+      },
+      "pypi.releases": {
+        "observed": 3,
+        "bound": 6
+      }
+    }
+  },
+  {
+    "app": "research",
+    "run": 2,
+    "error": null,
+    "seconds": 57.9,
+    "spent_usd": 0.02944,
+    "worst_case_usd": 0.24,
+    "models": [
+      "claude-haiku-4-5-20251001"
+    ],
+    "resources": {
+      "github.readme": {
+        "observed": 1,
+        "bound": 6
+      },
+      "llm": {
+        "observed": 4,
+        "bound": 8
+      },
+      "pypi.info": {
+        "observed": 3,
+        "bound": 6
+      },
+      "pypi.releases": {
+        "observed": 3,
+        "bound": 6
+      }
+    }
+  },
+  {
+    "app": "research",
+    "run": 3,
+    "error": null,
+    "seconds": 57.5,
+    "spent_usd": 0.02864,
+    "worst_case_usd": 0.24,
+    "models": [
+      "claude-haiku-4-5-20251001"
+    ],
+    "resources": {
+      "github.readme": {
+        "observed": 1,
+        "bound": 6
+      },
+      "llm": {
+        "observed": 4,
+        "bound": 8
+      },
+      "pypi.info": {
+        "observed": 3,
+        "bound": 6
+      },
+      "pypi.releases": {
+        "observed": 3,
+        "bound": 6
+      }
+    }
+  },
+  {
+    "app": "invoices",
+    "run": 1,
+    "error": null,
+    "seconds": 22.7,
+    "spent_usd": 0.01067,
+    "worst_case_usd": 0.5,
+    "models": [
+      "claude-haiku-4-5-20251001"
+    ],
+    "resources": {
+      "inbox.list": {
+        "observed": 1,
+        "bound": 1
+      },
+      "inbox.read": {
+        "observed": 3,
+        "bound": 25
+      },
+      "llm": {
+        "observed": 3,
+        "bound": 50
+      },
+      "payments.schedule": {
+        "observed": 1,
+        "bound": 25
+      },
+      "report.write": {
+        "observed": 1,
+        "bound": 1
+      },
+      "review.queue": {
+        "observed": 2,
+        "bound": 25
+      },
+      "vendors.lookup": {
+        "observed": 3,
+        "bound": 25
+      }
+    }
+  },
+  {
+    "app": "invoices",
+    "run": 2,
+    "error": null,
+    "seconds": 21.6,
+    "spent_usd": 0.00986,
+    "worst_case_usd": 0.5,
+    "models": [
+      "claude-haiku-4-5-20251001"
+    ],
+    "resources": {
+      "inbox.list": {
+        "observed": 1,
+        "bound": 1
+      },
+      "inbox.read": {
+        "observed": 3,
+        "bound": 25
+      },
+      "llm": {
+        "observed": 3,
+        "bound": 50
+      },
+      "payments.schedule": {
+        "observed": 1,
+        "bound": 25
+      },
+      "report.write": {
+        "observed": 1,
+        "bound": 1
+      },
+      "review.queue": {
+        "observed": 2,
+        "bound": 25
+      },
+      "vendors.lookup": {
+        "observed": 3,
+        "bound": 25
+      }
+    }
+  },
+  {
+    "app": "invoices",
+    "run": 3,
+    "error": null,
+    "seconds": 23.6,
+    "spent_usd": 0.01078,
+    "worst_case_usd": 0.5,
+    "models": [
+      "claude-haiku-4-5-20251001"
+    ],
+    "resources": {
+      "inbox.list": {
+        "observed": 1,
+        "bound": 1
+      },
+      "inbox.read": {
+        "observed": 3,
+        "bound": 25
+      },
+      "llm": {
+        "observed": 3,
+        "bound": 50
+      },
+      "payments.schedule": {
+        "observed": 1,
+        "bound": 25
+      },
+      "report.write": {
+        "observed": 1,
+        "bound": 1
+      },
+      "review.queue": {
+        "observed": 2,
+        "bound": 25
+      },
+      "vendors.lookup": {
+        "observed": 3,
+        "bound": 25
+      }
+    }
+  },
+  {
+    "app": "coding",
+    "run": 1,
+    "error": null,
+    "seconds": 45.7,
+    "spent_usd": 0.02434,
+    "worst_case_usd": 0.18,
+    "models": [
+      "claude-haiku-4-5-20251001"
+    ],
+    "resources": {
+      "llm": {
+        "observed": 1,
+        "bound": 6
+      },
+      "repo.edit": {
+        "observed": 1,
+        "bound": 3
+      },
+      "repo.files": {
+        "observed": 1,
+        "bound": 3
+      },
+      "repo.read": {
+        "observed": 2,
+        "bound": 120
+      },
+      "tests.run": {
+        "observed": 2,
+        "bound": 4
+      }
+    }
+  },
+  {
+    "app": "coding",
+    "run": 2,
+    "error": null,
+    "seconds": 59.9,
+    "spent_usd": 0.03357,
+    "worst_case_usd": 0.18,
+    "models": [
+      "claude-haiku-4-5-20251001"
+    ],
+    "resources": {
+      "llm": {
+        "observed": 1,
+        "bound": 6
+      },
+      "repo.edit": {
+        "observed": 1,
+        "bound": 3
+      },
+      "repo.files": {
+        "observed": 1,
+        "bound": 3
+      },
+      "repo.read": {
+        "observed": 2,
+        "bound": 120
+      },
+      "tests.run": {
+        "observed": 2,
+        "bound": 4
+      }
+    }
+  },
+  {
+    "app": "coding",
+    "run": 3,
+    "error": null,
+    "seconds": 64.9,
+    "spent_usd": 0.03514,
+    "worst_case_usd": 0.18,
+    "models": [
+      "claude-haiku-4-5-20251001"
+    ],
+    "resources": {
+      "llm": {
+        "observed": 1,
+        "bound": 6
+      },
+      "repo.edit": {
+        "observed": 1,
+        "bound": 3
+      },
+      "repo.files": {
+        "observed": 1,
+        "bound": 3
+      },
+      "repo.read": {
+        "observed": 2,
+        "bound": 120
+      },
+      "tests.run": {
+        "observed": 2,
+        "bound": 4
+      }
+    }
+  },
+  {
+    "app": "verify",
+    "run": 1,
+    "error": null,
+    "seconds": 116.7,
+    "spent_usd": 0.03556,
+    "worst_case_usd": 0.48,
+    "models": [
+      "claude-haiku-4-5-20251001"
+    ],
+    "resources": {
+      "github.readme": {
+        "observed": 1,
+        "bound": 2
+      },
+      "llm": {
+        "observed": 11,
+        "bound": 16
+      },
+      "pypi.info": {
+        "observed": 1,
+        "bound": 2
+      },
+      "pypi.releases": {
+        "observed": 1,
+        "bound": 2
+      }
+    }
+  },
+  {
+    "app": "verify",
+    "run": 2,
+    "error": null,
+    "seconds": 120.7,
+    "spent_usd": 0.03719,
+    "worst_case_usd": 0.48,
+    "models": [
+      "claude-haiku-4-5-20251001"
+    ],
+    "resources": {
+      "github.readme": {
+        "observed": 1,
+        "bound": 2
+      },
+      "llm": {
+        "observed": 11,
+        "bound": 16
+      },
+      "pypi.info": {
+        "observed": 1,
+        "bound": 2
+      },
+      "pypi.releases": {
+        "observed": 1,
+        "bound": 2
+      }
+    }
+  },
+  {
+    "app": "verify",
+    "run": 3,
+    "error": null,
+    "seconds": 116.7,
+    "spent_usd": 0.06908,
+    "worst_case_usd": 0.48,
+    "models": [
+      "claude-haiku-4-5-20251001"
+    ],
+    "resources": {
+      "github.readme": {
+        "observed": 1,
+        "bound": 2
+      },
+      "llm": {
+        "observed": 11,
+        "bound": 16
+      },
+      "pypi.info": {
+        "observed": 1,
+        "bound": 2
+      },
+      "pypi.releases": {
+        "observed": 1,
+        "bound": 2
+      }
+    }
+  }
+]

@@ -1,0 +1,18 @@
+[budget]
+max_usd = 0.30
+
+[grant."repo.files"]
+max_calls = 3
+
+[grant."repo.read"]
+max_calls = 120
+
+[grant."tests.run"]
+max_calls = 4
+
+[grant."repo.edit"]
+max_calls = 3
+arg_prefix = { path = ["src/"] }
+
+[grant.llm]
+max_calls = 6

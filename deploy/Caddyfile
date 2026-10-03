@@ -1,0 +1,16 @@
+# Caddy obtains and renews the HTTPS certificate automatically for {$DOMAIN}.
+{$DOMAIN} {
+	encode gzip
+	# AI agents connect here (MCP over streamable HTTP)
+	handle /mcp* {
+		reverse_proxy mcp:8000
+	}
+	handle /health {
+		reverse_proxy mcp:8000
+	}
+	# Website, llms.txt and docs
+	handle {
+		root * /srv/site
+		file_server
+	}
+}

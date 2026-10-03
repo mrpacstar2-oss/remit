@@ -1,0 +1,20 @@
+# Claim verification against primary sources (PyPI metadata and the project's README).
+type PkgInfo = { name: Str, version: Str, summary: Str, released: Str, source_url: Str, requires_python: Str, license: Str }
+type Release = { version: Str, date: Str }
+
+input statement tags untrusted
+input package tags untrusted
+
+capability pypi.info(name: Str) -> PkgInfo
+  tags untrusted
+  idempotent
+
+capability pypi.releases(name: Str) -> List[Release] max 20
+  tags untrusted
+  idempotent
+
+capability github.readme(repo: Str) -> Str
+  tags untrusted
+  idempotent
+
+model llm cost 0.03

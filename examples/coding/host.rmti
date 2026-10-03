@@ -1,0 +1,21 @@
+# Coding workflow host. Repository text can contain instructions planted in comments, so it is untrusted.
+type TestResult = { passed: Bool, output: Str }
+
+capability repo.files() -> List[Str] max 40
+  tags private
+  idempotent
+
+capability repo.read(path: Str) -> Str
+  tags private, untrusted
+  idempotent
+
+# Executes the repository's tests. WARNING: runs repository code on the host (no OS sandbox in this prototype).
+capability tests.run() -> TestResult
+  tags private, untrusted
+  idempotent
+
+# Applies an exact find/replace edit. The deployment policy restricts which paths may be edited.
+capability repo.edit(path: Str, find: Str, replace: Str) -> Bool
+
+model llm cost 0.03
+input task tags untrusted

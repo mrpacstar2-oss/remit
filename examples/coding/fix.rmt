@@ -1,0 +1,44 @@
+program fix_failing_tests
+uses repo.files, repo.read, tests.run, repo.edit, llm
+budget usd 0.20
+
+type Patch = { path: Str, find: Str, replace: Str, explanation: Str }
+type Source = { path: Str, content: Str }
+
+fn main(task: Str) -> Str {
+  var status = "not fixed after 3 edits"
+  for attempt in range(3) {
+    let result = tests.run()
+    if result.passed {
+      status = "tests pass after {attempt} edit(s)"
+      break
+    }
+    let sources = for f in repo.files() if endswith(f, ".py") {
+      { path: f, content: repo.read(f) }
+    }
+    let patch = propose(task, result.output, sources)
+    let applied = repo.edit(patch.path, patch.find, patch.replace) else false
+    if not applied {
+      status = "an edit could not be applied"
+    }
+  }
+  if startswith(status, "not fixed") {
+    if tests.run().passed {
+      status = "tests pass after 3 edit(s)"
+    }
+  }
+  return status
+}
+
+fn propose(task: Str, output: Str, sources: List[Source] max 40) -> Patch {
+  let ctx = { failing_test_output: output, files: sources }
+  return llm.ask(Patch, "Task: {task}\nThe tests fail. Propose ONE minimal edit to a file under src/. `find` must be an exact substring of that file (include enough lines to be unique) and `replace` its replacement. Never edit tests.", context: ctx) retry 1
+}
+
+test "stops as soon as tests pass" fixtures "fixtures/test_pass.json" {
+  expect main("fix the bugs") == "tests pass after 0 edit(s)"
+}
+
+test "applies a proposed edit then succeeds" fixtures "fixtures/test_fix.json" {
+  expect main("fix the bugs") == "tests pass after 1 edit(s)"
+}

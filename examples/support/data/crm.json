@@ -1,0 +1,12 @@
+{
+  "_note": "Synthetic local CRM used as a stand-in for a real CRM. Not real people.",
+  "customers": [
+    {"id": "C-1", "email": "ana@example.com", "name": "Ana"},
+    {"id": "C-9", "email": "bo@example.com", "name": "Bo"}
+  ],
+  "orders": [
+    {"id": "A-100", "customer_id": "C-1", "amount": 42.5, "status": "delivered"},
+    {"id": "B-200", "customer_id": "C-9", "amount": 120.0, "status": "delivered"},
+    {"id": "A-101", "customer_id": "C-1", "amount": 450.0, "status": "delivered"}
+  ]
+}

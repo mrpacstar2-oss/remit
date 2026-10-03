@@ -1,0 +1,42 @@
+program package_research
+uses pypi.info, pypi.releases, github.readme, llm
+budget usd 0.25
+
+type Finding = { package: Str, verdict: "adopt" | "trial" | "avoid", reasons: List[Str] max 4, evidence: List[Str] max 4 }
+type Report = { question: Str, findings: List[Finding] max 3, recommendation: Str }
+
+fn main(question: Str, packages: List[Str] max 3) -> Report {
+  let findings = for name in packages {
+    assess(question, name)
+  }
+  let rec = llm.ask(Str, "In two sentences, answer: {question}. Use only the findings.", context: findings) retry 1
+  return { question: question, findings: findings, recommendation: rec }
+}
+
+fn assess(question: Str, name: Str) -> Finding {
+  let info = pypi.info(name) retry 1
+  let releases = take(pypi.releases(name) retry 1 else [], 5)
+  let readme = if contains(info.source_url, "github.com/") {
+    github.readme(repo_of(info.source_url)) retry 1 else ""
+  } else {
+    ""
+  }
+  let excerpt = take(split(readme, "\n"), 60)
+  let facts = { info: info, recent_releases: releases, readme_excerpt: join(excerpt, "\n") }
+  return llm.ask(Finding, "Assess package {name} for this question: {question}. Cite evidence as short quotes or metadata fields from the context.", context: facts) retry 1
+}
+
+fn repo_of(url: Str) -> Str {
+  let parts = split(replace(replace(url, "https://", ""), "http://", ""), "/")
+  return "{parts[1]}/{parts[2]}"
+}
+
+test "assesses each package" fixtures "fixtures/test.json" {
+  let r = main("Which library should we use for HTTP?", ["httpx"])
+  expect len(r.findings) == 1
+  expect r.findings[0].verdict == "adopt"
+}
+
+test "repo_of extracts owner/name" {
+  expect repo_of("https://github.com/encode/httpx") == "encode/httpx"
+}

@@ -1,0 +1,9 @@
+{"_note": "OFFLINE FIXTURE: one failing run, one edit, then passing tests",
+ "capabilities": {
+  "tests.run": [{"output": {"passed": false, "output": "FAILED test_word_count"}}, {"output": {"passed": true, "output": "3 passed"}}],
+  "repo.files": [{"output": ["src/textstats.py", "tests/test_textstats.py"]}],
+  "repo.read": [{"repeat": true, "output": "def words(text): ..."}],
+  "repo.edit": [{"output": true}]
+ },
+ "model": [{"output": {"path": "src/textstats.py", "find": "text.split(\" \")", "replace": "text.split()", "explanation": "split on any whitespace"}}]
+}

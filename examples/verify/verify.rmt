@@ -1,0 +1,74 @@
+program verify_claims
+uses pypi.info, pypi.releases, github.readme, llm
+budget usd 0.60
+
+agent Extractor {
+  model: llm
+  system: "You extract short, independently checkable factual claims. You never add claims of your own."
+  max_calls: 1
+}
+
+agent Verifier {
+  model: llm
+  system: "You check one claim strictly against the evidence provided. Quote the evidence. If it is not in the evidence, the verdict is unsupported."
+  max_calls: 5
+}
+
+agent Auditor {
+  model: llm
+  system: "You are a sceptical auditor. Check one claim against the evidence only. Prefer unsupported over guessing. Quote the evidence."
+  max_calls: 5
+}
+
+agent Judge {
+  model: llm
+  system: "You resolve disagreements between two checkers by re-reading the evidence. Quote it."
+  max_calls: 5
+}
+
+type Claims = { claims: List[Str] max 5 }
+type Check = { verdict: "supported" | "unsupported" | "contradicted", quote: Str }
+type Verdict = { claim: Str, verdict: "supported" | "unsupported" | "contradicted", agreed: Bool, quote: Str }
+type Report = { package: Str, verdicts: List[Verdict] max 5, supported: Int, total: Int }
+
+fn main(statement: Str, package: Str) -> Report {
+  let info = pypi.info(package) retry 1
+  let releases = take(pypi.releases(package) retry 1 else [], 8)
+  let readme = if contains(info.source_url, "github.com/") {
+    github.readme(repo_of(info.source_url)) retry 1 else ""
+  } else {
+    ""
+  }
+  let evidence = { pypi: info, recent_releases: releases, readme_start: join(take(split(readme, "\n"), 80), "\n") }
+  let claims = Extractor.ask(Claims, "List the factual claims this statement makes about the package {package}.", context: statement)
+  let verdicts = for c in claims.claims {
+    check(c, evidence)
+  }
+  let supported = for v in verdicts if v.verdict == "supported" {
+    1
+  }
+  return { package: package, verdicts: verdicts, supported: len(supported), total: len(verdicts) }
+}
+
+fn check(claim: Str, evidence: { pypi: PkgInfo, recent_releases: List[Release] max 8, readme_start: Str }) -> Verdict {
+  let a = Verifier.ask(Check, "Claim: {claim}", context: evidence)
+  let b = Auditor.ask(Check, "Claim: {claim}", context: evidence)
+  if a.verdict == b.verdict {
+    return { claim: claim, verdict: a.verdict, agreed: true, quote: a.quote }
+  }
+  let j = Judge.ask(Check, "Claim: {claim}\nChecker A said {a.verdict} (quote: {a.quote}). Checker B said {b.verdict} (quote: {b.quote}).", context: evidence)
+  return { claim: claim, verdict: j.verdict, agreed: false, quote: j.quote }
+}
+
+fn repo_of(url: Str) -> Str {
+  let parts = split(replace(replace(url, "https://", ""), "http://", ""), "/")
+  return "{parts[1]}/{parts[2]}"
+}
+
+test "disagreement goes to the judge" fixtures "fixtures/test.json" {
+  let r = main("httpx is MIT licensed and supports HTTP/2.", "httpx")
+  expect r.total == 2
+  expect r.verdicts[0].verdict == "contradicted"
+  expect not r.verdicts[1].agreed
+  expect r.supported == 1
+}

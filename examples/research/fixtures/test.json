@@ -1,0 +1,12 @@
+{
+  "_note": "OFFLINE FIXTURE: canned PyPI/GitHub/model responses. Not live research.",
+  "capabilities": {
+    "pypi.info": [{"args": {"name": "httpx"}, "output": {"name": "httpx", "version": "0.28.1", "summary": "The next generation HTTP client.", "released": "2024-12-06", "source_url": "https://github.com/encode/httpx", "requires_python": ">=3.8", "license": "BSD-3-Clause"}}],
+    "pypi.releases": [{"args": {"name": "httpx"}, "output": [{"version": "0.28.1", "date": "2024-12-06"}]}],
+    "github.readme": [{"args": {"repo": "encode/httpx"}, "output": "# HTTPX\nHTTPX is a fully featured HTTP client for Python 3."}]
+  },
+  "model": [
+    {"match": "Assess package httpx", "output": {"package": "httpx", "verdict": "adopt", "reasons": ["Mature"], "evidence": ["summary: The next generation HTTP client."]}},
+    {"match": "In two sentences", "output": "Use httpx."}
+  ]
+}

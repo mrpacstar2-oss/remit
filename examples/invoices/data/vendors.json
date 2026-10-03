@@ -1,0 +1,5 @@
+{"_note": "Synthetic vendor master for the demo.",
+ "vendors": [
+  {"id": "V-10", "name": "Northwind Paper", "iban": "GB33BUKB20201555555555", "max_auto_pay": 2000.0},
+  {"id": "V-11", "name": "Contoso Cloud", "iban": "DE89370400440532013000", "max_auto_pay": 5000.0}
+ ]}

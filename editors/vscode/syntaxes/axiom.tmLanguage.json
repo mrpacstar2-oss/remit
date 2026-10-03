@@ -1,0 +1,30 @@
+{
+  "scopeName": "source.remit",
+  "name": "Remit",
+  "patterns": [
+    { "include": "#comment" },
+    { "include": "#string" },
+    { "match": "\\b(program|uses|budget|usd|type|fn|agent|test|capability|model|input)\\b", "name": "keyword.declaration.remit" },
+    { "match": "\\b(let|var|return|if|else|for|in|limit|match|break|expect)\\b", "name": "keyword.control.remit" },
+    { "match": "\\b(retry|timeout|tags|cost|idempotent|approval|always|deny|approve|clears|max)\\b", "name": "keyword.other.effect.remit" },
+    { "match": "\\b(and|or|not)\\b", "name": "keyword.operator.logical.remit" },
+    { "match": "\\b(true|false)\\b", "name": "constant.language.remit" },
+    { "match": "\\b\\d+(ms|s|m)\\b", "name": "constant.numeric.duration.remit" },
+    { "match": "\\b\\d[\\d_]*(\\.\\d+)?\\b", "name": "constant.numeric.remit" },
+    { "match": "\\b(Int|Float|Bool|Str|Unit|List)\\b", "name": "support.type.builtin.remit" },
+    { "match": "\\b[A-Z][A-Za-z0-9_]*\\b", "name": "entity.name.type.remit" },
+    { "match": "\\b(len|take|range|str|lower|upper|trim|contains|startswith|endswith|split|join|sum|min|abs|round|int|float|first|unique|replace)\\b(?=\\()", "name": "support.function.builtin.remit" },
+    { "match": "\\b([a-z_][a-z0-9_]*\\.[a-z_][a-z0-9_]*)\\b(?=\\()", "name": "entity.name.function.capability.remit" },
+    { "match": "(->|=>|==|!=|<=|>=|[+\\-*/%<>=|])", "name": "keyword.operator.remit" }
+  ],
+  "repository": {
+    "comment": { "match": "#.*$", "name": "comment.line.number-sign.remit" },
+    "string": {
+      "begin": "\"", "end": "\"", "name": "string.quoted.double.remit",
+      "patterns": [
+        { "match": "\\\\[nt\"\\\\{}]", "name": "constant.character.escape.remit" },
+        { "begin": "\\{", "end": "\\}", "name": "meta.interpolation.remit", "patterns": [{ "match": "[^}]+", "name": "variable.other.remit" }] }
+      ]
+    }
+  }
+}

@@ -1,0 +1,1 @@
+{"question": "Which Python library should a small team use for structured LLM outputs?", "packages": ["instructor", "outlines", "pydantic-ai"]}

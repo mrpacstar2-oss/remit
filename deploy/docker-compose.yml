@@ -1,0 +1,26 @@
+# Usage (on the VPS): DOMAIN=yourdomain.com docker compose up -d --build
+services:
+  mcp:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile
+    restart: unless-stopped
+    environment:
+      REMIT_FREE_MONTHLY: ${REMIT_FREE_MONTHLY:-2000}
+      REMIT_WEBSITE_URL: https://${DOMAIN}
+    volumes:
+      - remit-data:/data
+  caddy:
+    image: caddy:2
+    restart: unless-stopped
+    depends_on: [mcp]
+    ports: ["80:80", "443:443"]
+    environment:
+      DOMAIN: ${DOMAIN}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - ../site:/srv/site:ro
+      - caddy-data:/data
+volumes:
+  remit-data:
+  caddy-data:
