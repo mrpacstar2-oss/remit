@@ -255,6 +255,11 @@ def make_http_app(keys_path: Optional[str], usage_path: Optional[str], free_mont
                                         status_code=429)
             return await call_next(request)
     app.add_middleware(Gate)
+    site_dir = os.environ.get("REMIT_SITE_DIR")
+    if site_dir and os.path.isdir(site_dir):
+        # Simple mode: serve the website (index.html, llms.txt, docs) from the same port as /mcp.
+        from starlette.staticfiles import StaticFiles
+        app.mount("/", StaticFiles(directory=site_dir, html=True), name="site")
     return app
 
 
