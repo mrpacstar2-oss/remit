@@ -1,0 +1,27 @@
+# Publishes deploy/server.json to the official MCP Registry (registry.modelcontextprotocol.io).
+# Uses GitHub Actions OIDC: no tokens or passwords are stored. Runs when server.json changes, or manually.
+name: MCP Registry
+on:
+  push:
+    branches: [main]
+    paths: [deploy/server.json]
+  workflow_dispatch:
+permissions:
+  contents: read
+  id-token: write
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install mcp-publisher
+        run: |
+          os=$(uname -s | tr '[:upper:]' '[:lower:]')
+          arch=$(uname -m | sed 's/x86_64/amd64/;s/aarch64/arm64/')
+          curl -fsSL "https://github.com/modelcontextprotocol/registry/releases/latest/download/mcp-publisher_${os}_${arch}.tar.gz" | tar xz mcp-publisher
+          ./mcp-publisher --help | head -5
+      - name: Log in with GitHub OIDC
+        run: ./mcp-publisher login github-oidc
+      - name: Publish
+        working-directory: deploy
+        run: ../mcp-publisher publish

@@ -1,10 +1,16 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-09-29/server.schema.json",
   "name": "io.github.mrpacstar2-oss/remit",
-  "description": "Learn, check and test Remit programs: a checked language for AI-written agent workflows (authority, worst-case cost, data flows).",
+  "description": "Checked language for AI-written agent workflows: limits, cost and data flows known before running.",
   "version": "0.1.0",
-  "repository": { "url": "https://github.com/mrpacstar2-oss/remit", "source": "github" },
+  "repository": {
+    "url": "https://github.com/mrpacstar2-oss/remit",
+    "source": "github"
+  },
   "remotes": [
-    { "type": "streamable-http", "url": "https://77-68-52-20.sslip.io/mcp" }
+    {
+      "type": "streamable-http",
+      "url": "https://77-68-52-20.sslip.io/mcp"
+    }
   ]
 }
