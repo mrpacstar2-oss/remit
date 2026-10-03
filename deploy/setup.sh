@@ -3,7 +3,7 @@
 # Before running: point your domain's DNS "A" record at this server's IP address.
 set -euo pipefail
 : "${DOMAIN:?set DOMAIN, e.g. DOMAIN=example.com bash setup.sh}"
-REPO="${REPO:-https://github.com/mrpacstar2-oss/remit.git}"   # set to the public repository once it exists
+REPO="${REPO:-https://github.com/mrpacstar2-oss/remit.git}"
 if ! command -v docker >/dev/null; then
   curl -fsSL https://get.docker.com | sh
 fi
