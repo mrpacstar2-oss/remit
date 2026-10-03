@@ -6,8 +6,7 @@
 > details or email recipients. A runtime broker then enforces the same rules.
 
 Use it when you need to write or modify an agent workflow whose actions must be reviewable before it runs.
-Connect the MCP server for tools that check, format and test programs: https://example.com/mcp (streamable HTTP), or run
-`remit mcp` locally (stdio).
+Run the MCP server locally with `pip install "remit[mcp]"` (from the GitHub repository) and `remit mcp` (stdio).
 
 ## Docs
 
@@ -16,7 +15,8 @@ Connect the MCP server for tools that check, format and test programs: https://e
 
 ## Tools
 
-- [MCP server](https://example.com/mcp): remit_guide, remit_check, remit_format, remit_authority_diff, remit_examples, remit_run_fixtures
+- MCP server (local: `remit mcp`): remit_guide, remit_check, remit_format, remit_authority_diff, remit_examples, remit_run_fixtures
+- [Source code and examples](https://github.com/mrpacstar2-oss/remit)
 
 ## Optional
 

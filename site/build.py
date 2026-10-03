@@ -9,6 +9,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.dirname(os.path.abspath(__file__))
 URL = os.environ.get("SITE_URL", "https://example.com").rstrip("/")
 NAME = os.environ.get("SITE_NAME", "Remit")
+MCP_URL = os.environ.get("MCP_URL", "").strip()  # hosted MCP endpoint, e.g. https://1-2-3-4.sslip.io/mcp
 
 
 def read(p):
@@ -22,6 +23,16 @@ host = read("examples/invoices/host.rmti")
 open(os.path.join(OUT, "guide.md"), "w").write(guide)
 open(os.path.join(OUT, "spec.md"), "w").write(spec)
 
+MCP_LINE = (f"Connect the MCP server for tools that check, format and test programs: {MCP_URL} (streamable HTTP), "
+            "or run `remit mcp` locally (stdio)." if MCP_URL else
+            "Run the MCP server locally with `pip install \"remit[mcp]\"` (from the GitHub repository) and `remit mcp` (stdio).")
+MCP_WHERE = MCP_URL if MCP_URL else "local: `remit mcp`"
+index = os.path.join(OUT, "index.html")
+html = open(index).read()
+if MCP_URL:
+    html = html.replace("https://YOUR-DOMAIN/mcp", MCP_URL)
+open(index, "w").write(html)
+
 open(os.path.join(OUT, "llms.txt"), "w").write(f"""# {NAME}
 
 > A small, statically checked language for programs written by AI agents that call tools and models. Before a
@@ -30,8 +41,7 @@ open(os.path.join(OUT, "llms.txt"), "w").write(f"""# {NAME}
 > details or email recipients. A runtime broker then enforces the same rules.
 
 Use it when you need to write or modify an agent workflow whose actions must be reviewable before it runs.
-Connect the MCP server for tools that check, format and test programs: {URL}/mcp (streamable HTTP), or run
-`remit mcp` locally (stdio).
+{MCP_LINE}
 
 ## Docs
 
@@ -40,7 +50,8 @@ Connect the MCP server for tools that check, format and test programs: {URL}/mcp
 
 ## Tools
 
-- [MCP server]({URL}/mcp): remit_guide, remit_check, remit_format, remit_authority_diff, remit_examples, remit_run_fixtures
+- MCP server ({MCP_WHERE}): remit_guide, remit_check, remit_format, remit_authority_diff, remit_examples, remit_run_fixtures
+- [Source code and examples](https://github.com/mrpacstar2-oss/remit)
 
 ## Optional
 

@@ -95,8 +95,7 @@ The full specification is in LANGUAGE_SPEC.md: semantics, trust boundaries and t
 
 # Remit language specification (v0.1, prototype)
 
-"Remit" is a temporary codename (see COMPETITORS.md, "Name conflict"). This document describes **what is
-implemented** in `src/remit` as of this commit. Proposals are collected in §13 and are clearly marked.
+This document describes **what is implemented** in `src/remit` as of this commit. Proposals are collected in §13 and are clearly marked.
 
 ## 1. Purpose and scope
 
