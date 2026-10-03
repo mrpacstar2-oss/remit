@@ -83,6 +83,6 @@ all work and are tested. It is not yet a finished product: there is no built-in 
 isolated environment) and no module system, concurrency or editor language server yet. See
 [LANGUAGE_SPEC §13](docs/LANGUAGE_SPEC.md#13-proposals-not-implemented) for what is planned.
 
-Setting up the website and hosted MCP server is covered in [deploy/PUBLISHING.md](deploy/PUBLISHING.md).
+Running your own copy of the website and MCP server is covered in [deploy/README.md](deploy/README.md).
 
 Licence: Apache-2.0.
