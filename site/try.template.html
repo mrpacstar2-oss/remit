@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Try Remit: stop unsafe AI edits before they run</title>
+<meta name="description" content="Edit an AI-run invoice-payment program and see what the Remit checker allows, limits or blocks before anything runs.">
+<style>
+:root { --bg:#fbfaf8; --fg:#1d1d1b; --muted:#5d5b56; --card:#ffffff; --line:#e4e1da; --accent:#2f5d50; --code:#f2f0eb; --bad:#9b2c2c; --good:#2f6b3a; }
+@media (prefers-color-scheme: dark) { :root { --bg:#161615; --fg:#ecebe7; --muted:#a8a59e; --card:#1f1f1d; --line:#33322f; --accent:#7fb8a6; --code:#252523; --bad:#e08a8a; --good:#8fcf98; } }
+* { box-sizing: border-box; }
+body { margin:0; background:var(--bg); color:var(--fg); font:16px/1.55 system-ui, -apple-system, "Segoe UI", sans-serif; }
+main { max-width: 980px; margin: 0 auto; padding: 32px 16px 64px; }
+h1 { font-size: 1.7rem; margin: 0 0 6px; line-height: 1.25; }
+p.lead { color: var(--muted); margin: 0 0 18px; }
+.buttons { display:flex; flex-wrap:wrap; gap:8px; margin: 12px 0; }
+button { font: inherit; border:1px solid var(--line); background:var(--card); color:var(--fg); border-radius:8px; padding:8px 12px; cursor:pointer; }
+button:hover { border-color: var(--accent); }
+button.primary { background: var(--accent); color: var(--bg); border-color: var(--accent); font-weight: 600; }
+textarea { width:100%; min-height: 380px; font: 13px/1.5 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; background:var(--code); color:var(--fg); border:1px solid var(--line); border-radius:8px; padding:12px; resize: vertical; }
+pre { background: var(--code); border:1px solid var(--line); border-radius:8px; padding:12px; overflow-x:auto; font-size:13px; white-space: pre; }
+.verdict { font-weight: 700; margin: 16px 0 6px; }
+.bad { color: var(--bad); } .good { color: var(--good); }
+a { color: var(--accent); }
+.note { color: var(--muted); font-size: 14px; }
+</style>
+</head>
+<body>
+<main>
+<h1>An AI runs your invoice payments. What can it actually do?</h1>
+<p class="lead">This program is written in Remit. Pick an edit an AI might make (or type your own) and press
+<b>Check</b>. Nothing runs: the checker reads the program and reports what it could do, or why it is not allowed.</p>
+
+<div class="buttons" id="scenarios"></div>
+<textarea id="program" spellcheck="false" aria-label="Remit program"></textarea>
+<div class="buttons"><button class="primary" id="check">Check</button><button id="reset">Reset</button></div>
+<div id="verdict" class="verdict" role="status"></div>
+<pre id="out" hidden></pre>
+
+<p class="note">The host (the business running it) declares the tools: invoices are untrusted documents, the vendor
+master is trusted, payment bank details must never come from untrusted data, and every payment amount taken from a
+document needs a human approval. <a href="./">About Remit</a> ·
+<a href="https://github.com/mrpacstar2-oss/remit">Source</a></p>
+</main>
+<script>
+const ORIGINAL = __PROGRAM__;
+const SCENARIOS = [
+  { label: "Original program", edit: s => s },
+  { label: "Pay the bank account printed on the invoice", edit: s => s.replace("iban: vendor.iban,", "iban: inv.iban_on_invoice,") },
+  { label: "Retry the payment if it fails", edit: s => s.replace("reference: inv.invoice_no)", "reference: inv.invoice_no) retry 2") },
+  { label: "Ask the AI about every line of every invoice", edit: s => s.replace("  let text = inbox.read(path)\n", "  let text = inbox.read(path)\n  let notes = for line in split(text, \"\\n\") {\n    llm.ask(Str, \"Summarise this line\", context: line)\n  }\n") },
+  { label: "Use a tool the business never granted", edit: s => s.replace("  return outcomes\n", "  email.send(to: \"me@example.com\", subject: \"report\", body: \"done\")\n  return outcomes\n") },
+];
+const ta = document.getElementById("program"), out = document.getElementById("out"), verdict = document.getElementById("verdict");
+const box = document.getElementById("scenarios");
+SCENARIOS.forEach(sc => { const b = document.createElement("button"); b.textContent = sc.label;
+  b.onclick = () => { ta.value = sc.edit(ORIGINAL); check(); }; box.appendChild(b); });
+document.getElementById("reset").onclick = () => { ta.value = ORIGINAL; verdict.textContent = ""; out.hidden = true; };
+document.getElementById("check").onclick = check;
+async function check() {
+  verdict.textContent = "Checking…"; verdict.className = "verdict"; out.hidden = true;
+  try {
+    const r = await fetch("api/check", { method: "POST", headers: { "content-type": "application/json" },
+      body: JSON.stringify({ program: ta.value, example: "invoices" }) });
+    const d = await r.json();
+    if (r.status === 429) { verdict.textContent = "Demo limit reached for today. Try again later."; return; }
+    if (d.ok) {
+      verdict.textContent = "Allowed. Here is everything it can do, worst case:"; verdict.className = "verdict good";
+      out.textContent = d.summary;
+    } else {
+      verdict.textContent = "Blocked before running:"; verdict.className = "verdict bad";
+      out.textContent = (d.errors || []).join("\n\n");
+    }
+    out.hidden = false;
+  } catch (e) {
+    verdict.textContent = "Could not reach the checker. The demo works on the Remit server, not on static copies.";
+  }
+}
+ta.value = ORIGINAL;
+</script>
+</body>
+</html>

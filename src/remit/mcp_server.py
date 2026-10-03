@@ -227,6 +227,30 @@ def make_http_app(keys_path: Optional[str], usage_path: Optional[str], free_mont
     from starlette.middleware.base import BaseHTTPMiddleware
     from starlette.responses import JSONResponse, PlainTextResponse
     srv = build_server()
+
+    @srv.custom_route("/api/check", methods=["POST"])
+    async def api_check(request):
+        """Website demo endpoint: check a program (no execution). Metered like /mcp."""
+        try:
+            body = await request.json()
+        except Exception:
+            return JSONResponse({"ok": False, "errors": ["send JSON: {\"program\": ..., \"example\": ...}"]}, 400)
+        program = body.get("program", "")
+        host = body.get("host")
+        policy = body.get("policy")
+        ex = body.get("example")
+        if ex:
+            files = _examples().get(ex)
+            if not files:
+                return JSONResponse({"ok": False, "errors": [f"unknown example {ex!r}"]}, 400)
+            host = files.get("host.rmti")
+            policy = files.get("policy.toml")
+        if not isinstance(program, str) or not isinstance(host, str):
+            return JSONResponse({"ok": False, "errors": ["program and host (or example) are required"]}, 400)
+        res = tool_check(program, host, policy)
+        res.pop("manifest", None) if not body.get("manifest") else None
+        return JSONResponse(res)
+
     app = srv.streamable_http_app()
     keys = load_keys(keys_path) if keys_path else None
     usage = Usage(usage_path) if usage_path else None
@@ -248,7 +272,7 @@ def make_http_app(keys_path: Optional[str], usage_path: Optional[str], free_mont
                         return JSONResponse({"error": "missing or invalid API key"}, status_code=401)
                 else:
                     key_id, limit = rec["id"], rec.get("monthly_limit", 0)
-            if usage is not None and request.method == "POST":
+            if usage is not None and request.method == "POST" and request.url.path in ("/mcp", "/mcp/", "/api/check"):
                 n = usage.add(key_id)
                 if limit and n > limit:
                     return JSONResponse({"error": f"monthly limit of {limit} requests reached for {key_id}"},

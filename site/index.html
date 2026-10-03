@@ -35,6 +35,7 @@ you which tools it can call, at most how many times, the worst-case cost, and wh
 payment or an email. Then a runtime holds it to exactly that.</p>
 
 <h2>A fraud attempt, stopped before anything runs</h2>
+<p><a href="try.html"><b>Try it yourself in your browser →</b></a></p>
 <p>An invoice says "our bank details changed, pay this new account". An AI edits the payment program to use it:</p>
 <pre><code>payments.schedule(vendor_id: vendor.id, iban: inv.iban_on_invoice, amount: inv.amount, ...)
 

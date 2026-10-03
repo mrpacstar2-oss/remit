@@ -2,6 +2,9 @@
 {$DOMAIN} {
 	encode gzip
 	# AI agents connect here (MCP over streamable HTTP)
+	handle /api/* {
+		reverse_proxy mcp:8000
+	}
 	handle /mcp* {
 		reverse_proxy mcp:8000
 	}

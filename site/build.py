@@ -66,7 +66,11 @@ open(os.path.join(OUT, "robots.txt"), "w").write(
     "# AI crawlers and agents are welcome.\nUser-agent: *\nAllow: /\n\n"
     f"Sitemap: {URL}/sitemap.xml\n")
 
-pages = ["", "llms.txt", "llms-full.txt", "guide.md", "spec.md"]
+import json as _json
+tpl = open(os.path.join(OUT, "try.template.html")).read()
+open(os.path.join(OUT, "try.html"), "w").write(tpl.replace("__PROGRAM__", _json.dumps(example)))
+
+pages = ["", "try.html", "llms.txt", "llms-full.txt", "guide.md", "spec.md"]
 open(os.path.join(OUT, "sitemap.xml"), "w").write(
     '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
     + "".join(f"  <url><loc>{URL}/{p}</loc></url>\n" for p in pages) + "</urlset>\n")
