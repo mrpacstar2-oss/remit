@@ -4,6 +4,8 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$ROOT"
 [ -f deploy/site.env ] && { set -a; . deploy/site.env; set +a; }
+# Generated website files are rebuilt below; drop local copies so the pull never conflicts.
+git checkout -q -- site
 before="$(git rev-parse HEAD)"
 git pull --ff-only -q
 after="$(git rev-parse HEAD)"
